@@ -1,0 +1,35 @@
+[tasks.maybeClean]
+run = """
+if [ '{{flag(name='clean')}}' = 'true' ]; then
+  echo 'cleaning'
+fi
+"""
+
+[tasks."docker:run"]
+run = """
+  USER="$(id --user --name)"
+  USER_UID="$(id --user)"
+  USER_GID="$(id --user)"
+	DOCKER_IMAGE_NAME="dotfiles"
+
+	if [ ! docker inspect "${DOCKER_IMAGE_NAME}" &>/dev/null ] || [ '{{flag(name='build')}}' = 'true' ]; then
+		docker build \
+	     --file "${MISE_CONFIG_ROOT}/Containerfile" \
+	     --tag "${DOCKER_IMAGE_NAME}" \
+	     --build-arg "USERNAME=${USER}" \
+	     --build-arg "USER_UID=${USER_UID}" \
+	     --build-arg "USER_GID=${USER_GID}" \
+	     .
+	fi
+
+export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t"
+	docker run \
+	  --interactive \
+	  --tty \
+	  --rm \
+	  -v "${MISE_CONFIG_ROOT}:/home/${USER}/.local/share/chezmoi" \
+    -v ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK} \
+    -v /Users/pbrunner/.gnupg:/home/pbrunner/.gnupg:ro \
+	  dotfiles \
+	     /usr/bin/zsh --login
+"""
