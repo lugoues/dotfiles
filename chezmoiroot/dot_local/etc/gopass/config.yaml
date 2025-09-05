@@ -1,0 +1,3 @@
+core.autopush
+core.autosync
+mounts.path: ['~/.local/config/gopass']

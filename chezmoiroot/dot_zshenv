@@ -1,0 +1,124 @@
+export PATH=~/.local/bin:$PATH
+export SHELL="$(which zsh)"
+export MISE_CONFIG_DIR="~/.local/etc/mise"
+export MISE_TRUSTED_CONFIG_PATHS="~/.local/etc/mise"
+export MISE_IGNORED_CONFIG_PATHS="~/.local/share/chezmoi/mise.toml"
+eval "$(mise activate zsh)"
+
+
+_zsh_cache_init() {
+  emulate -L zsh
+  set -o errexit -o nounset -o pipefail
+  # set -x
+
+  if (( $# < 2 )); then
+    print -u2 "usage: _zsh_cache_init <tool_name> <command ...>"
+    return 2
+  fi
+
+  set -x
+
+  local tool="$1"; shift
+  local dir=$HOME/.local/share/zsh/init.d
+  local out=$dir/${tool}.zsh
+  mkdir -p -- "$dir"
+
+  local tmp
+  tmp=$(mktemp -- "$dir/.tmp.XXXXXX" 2>/dev/null || mktemp "$dir/.tmp.XXXXXX")
+
+  if ! mise exec -- "$@" >| "$tmp"; then
+    rm -f -- "$tmp"
+    print -u2 "_zsh_cache_init: command failed: $*"
+    return 1
+  fi
+  if [[ ! -s $tmp ]]; then
+    rm -f -- "$tmp"
+    print -u2 "_zsh_cache_init: empty output from: $*"
+    return 1
+  fi
+
+  mv -f -- "$tmp" "$out"
+}
+
+_zsh_cache_completion() {
+  emulate -L zsh
+  set -o errexit -o nounset -o pipefail
+
+  if (( $# < 2 )); then
+    print -u2 "usage: _zsh_cache_completion <tool_name> <command ...>"
+    return 2
+  fi
+
+  local tool="$1"; shift
+  local dir=$HOME/.local/share/zsh/completions
+  local out=$dir/_${tool}
+  mkdir -p -- "$dir"
+
+  local tmp
+  tmp=$(mktemp -- "$dir/.tmp.XXXXXX" 2>/dev/null || mktemp "$dir/.tmp.XXXXXX")
+
+  if ! mise exec -- "$@" >| "$tmp"; then
+    rm -f -- "$tmp"
+    print -u2 "_zsh_cache_completion: command failed: $*"
+    return 1
+  fi
+  if [[ ! -s $tmp ]]; then
+    rm -f -- "$tmp"
+    print -u2 "_zsh_cache_completion: empty output from: $*"
+    return 1
+  fi
+
+  mv -f -- "$tmp" "$out"
+
+  # Refresh completion system if available
+  if ! (( $+functions[compinit] )); then
+    autoload -Uz compinit
+  fi
+  if [[ -z ${_comp_dumpfile-} || ! -f ${_comp_dumpfile-} ]]; then
+    compinit -u
+  else
+    rehash
+    compinit -Cu
+  fi
+}
+
+_zsh_init_load() {
+  emulate -L zsh
+  set -o errexit -o nounset -o pipefail
+
+  local dir=$HOME/.local/share/zsh/init.d
+
+  [[ -d $dir ]] || return 0
+
+  # Map filenames to the command to test. Defaults to basename without .zsh.
+  # Override here for mismatches (e.g., starship uses 'starship', gh uses 'gh', etc.).
+  typeset -A _tool_cmd_map
+  # Examples of overrides (uncomment/add as needed):
+  # _tool_cmd_map[gh]=gh
+  # _tool_cmd_map[atuin]=atuin
+  # _tool_cmd_map[direnv]=direnv
+  # _tool_cmd_map[starship]=starship
+  # _tool_cmd_map[rtx]=rtx
+  # _tool_cmd_map[mise]=mise
+  # _tool_cmd_map[asdf]=asdf
+  # _tool_cmd_map[fzf]=fzf
+  # _tool_cmd_map[zoxide]=zoxide
+
+  setopt localoptions null_glob
+  local f base cmd
+  for f in "$dir"/*.zsh(Nom); do
+    [[ -r $f ]] || continue
+    base=${${f:t}%.*}          # filename without directory and .zsh
+    cmd=${_tool_cmd_map[$base]:-$base}
+
+    # Skip if command not found
+    if ! command -v -- "$cmd" >/dev/null 2>&1; then
+      # Uncomment to debug:
+      print -u2 "zsh_init: skip $base (missing command: $cmd)"
+      continue
+    fi
+
+    builtin . "$f"
+  done
+}
+

@@ -1,0 +1,12 @@
+zle -N zle-keymap-select
+
+export PATH="~/.local/bin:$PATH"
+export MISE_CONFIG_DIR="~/.local/etc/mise"
+
+[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
+
+eval "$(~/.local/bin/mise activate zsh)"
+
+eval "$(sheldon source)"
+
+export LS_COLORS="$(vivid generate nord)"

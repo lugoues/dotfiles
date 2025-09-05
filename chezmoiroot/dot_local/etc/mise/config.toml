@@ -1,0 +1,132 @@
+[env]
+ATUIN_CONFIG_DIR = '{{ env.HOME }}/.local/etc/atuin'
+BAT_CONFIG_PATH = '{{ env.HOME }}/.local/etc/bat.conf'
+SHELDON_CONFIG_DIR = '{{ env.HOME }}/.local/etc/sheldon'
+STARSHIP_CONFIG = '{{ env.HOME }}/.local/etc/starship/config.toml'
+ZELLIJ_CONFIG_DIR = '{{ env.HOME }}/.local/etc/zellij'
+_ZO_DATA_DIR = '{{ env.HOME }}/.local/share/zoxide'
+
+[settings]
+auto_install = true
+disable_backends = ['asdf', 'gem', 'vfox']
+exec_auto_install = true
+experimental = true
+idiomatic_version_file_enable_tools = []
+jobs = 8
+lockfile = true
+unix_default_file_shell_args = 'zsh'
+unix_default_inline_shell_args = 'zsh -c -o errexit'
+use_file_shell_for_executable_tasks = true
+use_versions_host = false
+ignored_config_paths = ['{{ env.HOME }}/.local/share/chezmoi/mise.toml']
+
+[settings.npm]
+bun = true
+
+[settings.pipx]
+uvx = true
+
+[tools]
+'aqua:99designs/aws-vault' = 'latest'
+'aqua:ClementTsang/bottom' = 'latest'
+'aqua:FiloSottile/mkcert' = 'latest'
+'aqua:Lifailon/lazyjournal' = 'latest'
+'aqua:antonmedv/fx' = 'latest'
+'aqua:aws/aws-cli' = 'latest'
+'aqua:charmbracelet/freeze' = 'latest'
+'aqua:charmbracelet/skate' = 'latest'
+'aqua:direnv/direnv' = 'latest'
+'aqua:ducaale/xh' = 'latest'
+'aqua:dylanaraps/neofetch' = 'latest'
+'aqua:ip7z/7zip' = 'latest'
+'aqua:jqlang/jq' = 'latest'
+'aqua:junegunn/fzf' = 'latest'
+'aqua:mikefarah/yq' = 'latest'
+'aqua:neovim/neovim' = 'latest'
+'aqua:oven-sh/bun' = 'latest'
+'aqua:pypa/pipx' = 'latest'
+'aqua:sachaos/viddy' = 'latest'
+'aqua:showwin/speedtest-go' = 'latest'
+'aqua:sigstore/cosign' = 'latest'
+# 'aqua:slimtoolkit/slim' = 'latest'
+'aqua:sxyazi/yazi' = 'latest'
+'aqua:txn2/kubefwd' = 'latest'
+'aqua:wagoodman/dive' = 'latest'
+'aqua:zellij-org/zellij' = 'latest'
+bun = 'latest'
+rust = "latest"
+# cargo = 'latest'
+cargo-binstall = 'latest'
+'cargo:broot' = 'latest'
+'cargo:du-dust' = 'latest'
+'cargo:eza' = 'latest'
+node = 'latest'
+'pipx:nicolargo/glances' = 'latest'
+'ubi:tstack/lnav' = 'v0.13.0'
+
+[tools.'aqua:1password/cli']
+postinstall = "  _zsh_cache_completion op \\\n\t\top completion zsh;"
+version = 'v2.31.1'
+
+[tools.'aqua:BurntSushi/ripgrep']
+postinstall = "  _zsh_cache_completion rg \\\n    rg --generate complete-zsh"
+version = 'latest'
+
+[tools.'aqua:ajeetdsouza/zoxide']
+postinstall = "\t _zsh_cache_init zoxide \\\n\t\tzoxide init zsh;"
+version = 'latest'
+
+[tools.'aqua:astral-sh/uv']
+postinstall = "\t_zsh_cache_completion uv \\\n\t\tuv --generate-shell-completion zsh;"
+version = 'latest'
+
+[tools.'aqua:atuinsh/atuin']
+postinstall = "  _zsh_cache_init atuin \\\n    atuin init zsh --disable-up-arrow;\n  _zsh_cache_completion atuin \\\n    atuin gen-completions --shell zsh;"
+version = 'latest'
+
+[tools.'aqua:charmbracelet/crush']
+postinstall = "  _zsh_cache_completion crush \\\n    crush completion zsh;"
+version = 'latest'
+
+[tools.'aqua:charmbracelet/glow']
+# postinstall = "  _zsh_cache_completion glow \\\n    glow complestion zsh;"
+version = 'latest'
+
+[tools.'aqua:dandavison/delta']
+postinstall = "  _zsh_cache_completion delta \\\n    delta --generate-completion zsh;"
+version = 'latest'
+
+[tools.'aqua:denisidoro/navi']
+postinstall = "  _zsh_cache_init navi \\\n    navi widget zsh;"
+version = '2.23.0'
+
+[tools.'aqua:jdx/mise']
+postinstall = "  mise plugins update --yes;\n  _zsh_cache_completion mise \\\n    mise completion zsh;"
+version = 'latest'
+
+[tools.'aqua:jj-vcs/jj']
+postinstall = "  _zsh_cache_completion jj \\\n    jj util completion zsh;"
+version = 'latest'
+
+[tools.'aqua:mr-karan/doggo']
+postinstall = "  _zsh_cache_completion doggo \\\n    doggo completions zsh;"
+version = 'latest'
+
+[tools.'aqua:rossmacarthur/sheldon']
+postinstall = "  _zsh_cache_completion sheldon \\\n    sheldon completions --shell zsh;"
+version = 'latest'
+
+[tools.'aqua:sharkdp/bat']
+postinstall = "  _zsh_cache_completion bat \\\n    bat --completion zsh;"
+version = 'latest'
+
+[tools.'aqua:sharkdp/fd']
+# postinstall = "  echo ${MISE_TOOL_INSTALL_PATH};\n  cp ${MISE_TOOL_INSTALL_PATH}/autocomplete/_fd ~/.local/share/zsh/completion/;"
+version = 'latest'
+
+[tools.'aqua:sharkdp/vivid']
+version = 'latest'
+
+[tools.'npm:@withgraphite/graphite-cli']
+postinstall = "  _zsh_cache_completion gt \\\n    gt completion;"
+version = 'latest'

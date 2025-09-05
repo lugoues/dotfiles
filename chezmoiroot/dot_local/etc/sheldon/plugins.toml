@@ -1,0 +1,45 @@
+shell = "zsh"
+
+[templates]
+defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
+maybe = "{{ hooks?.pre | nl }} [[ -f {{ name }} ]] && source {{ file }} {{ hooks?.post | nl }}"
+
+
+[plugins]
+
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+apply = ["defer"]
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+apply = ["defer"]
+
+[plugins.powerlevel10k]
+github = "romkatv/powerlevel10k"
+
+[plugins.zsh-init]
+local = "~/.local/share/zsh/init.d"
+apply = ["defer"]
+
+[plugins.commands]
+local = "~/.local/etc/zsh/commands"
+apply = ["defer"]
+
+[plugins.configuration]
+local = "~/.local/etc/zsh/configuration"
+
+[plugins.zshrc-local]
+inline = "[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local"
+
+[plugins.term-info]
+inline = '''
+  tic -x ~/.local/etc/terminfo/xterm-256color-italic.terminfo;
+  tic -x ~/.local/etc/terminfo/tmux.terminfo;
+'''
+
+[plugins.compinit]
+inline = "autoload -Uz compinit && zsh-defer compinit"

@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+# export MISE_VERBOSE="1"
+# export MISE_CONFIG_DIR="~/.local/etc/mise/"
+# export MISE_USE_VERSIONS_HOST="0"
+# export MISE_AQUA_BAKED_REGISTRY="false"
+
+mkdir -p ~/.local/{etc,bin,share/zsh/{init.d,completion}}
+
+# Mise doesn't have tool dependency support so we must install them first.
+~/.local/bin/mise use -g rust
+
+~/.local/bin/mise install

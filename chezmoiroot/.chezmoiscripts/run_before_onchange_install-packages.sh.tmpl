@@ -1,0 +1,27 @@
+#!/bin/bash
+
+{{ if eq .osid "darwin" -}}
+brew bundle --file=/dev/stdin <<EOF
+{{ range .packages.darwin.brews -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ range .packages.darwin.casks -}}
+cask {{ . | quote }}
+{{ end -}}
+EOF
+{{ end -}}
+
+
+{{ if eq .osid "linux-debian" }}
+#MISSING=$(comm -23 \
+#  <(tr ' ' '\n' <<<{{ .packages.debian | quoteList | join " " -}} | sort -u) \
+#  <(dpkg-query -W -f='${binary:Package}\n' | sort -u) \
+#  | xargs)
+
+#if [[ -n "${MISSING}" ]]; then
+  sudo apt-get update
+  sudo DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends $MISSING
+    #{{ .packages.debian | quoteList | join " " -}}
+#fi
+{{ end -}}
+

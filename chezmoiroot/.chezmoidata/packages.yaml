@@ -1,0 +1,16 @@
+packages:
+  debian:
+    - wget
+    - git
+    - zsh
+    - build-essential
+    - libssl-dev
+    - pkg-config
+    - gpg
+    - gpg-agent
+  darwin:
+    brews:
+      - git
+      - gpg
+    casks:
+      - slack

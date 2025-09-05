@@ -1,0 +1,34 @@
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
+encryption: "gpg"
+verbose: true
+pager: bat
+
+diff:
+  command: delta
+
+git:
+  autoPush: true
+  autoCommit: true
+
+gpg:
+  symmetric: true
+
+gopass:
+  mode: builtin
+#  comand: gopass -c
+
+data:
+  osid: {{ $osid | quote }}
+
+env:
+  MISE_VERBOSE: "1"
+  MISE_CONFIG_DIR: "~/.local/etc/mise/"
+  MISE_USE_VERSIONS_HOST: "0"
+  MISE_AQUA_BAKED_REGISTRY: "false"
+  GITHUB_TOKEN: "{{ joinPath .chezmoi.sourceDir "secrets/github-token.gpg" | include | decrypt }}"
+  GOPASS_CONFIG: "~/.local/etc/gopass/config.yaml"
+  PASSWORD_STORE_DIR: "~/.local/share/gopass"

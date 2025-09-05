@@ -1,0 +1,334 @@
+[credential]
+	helper =
+
+[core]
+	excludesfile = /Users/pbrunner/.gitignore_global
+  editor=nvim
+	autocrlf = false
+  safecrlf=warn
+  pager = less -+X -+F
+  logAllRefUpdates = true
+
+[gpg]
+  format = ssh
+
+[rebase]
+	autoStash = true
+
+[push]
+  default = simple
+	; gpgsign = if-asked
+
+; [commit]
+  ; gpgsign = true
+	; template = ~/.stCommitMsg
+; template = /Users/pbrunner/.stCommitMsg
+
+[fetch]
+  prune = true
+
+[diff]
+  tool = icdiff
+  indentHeuristic = true
+
+[difftool "cdiff"]
+  cmd = /usr/local/bin/cdiff \"$LOCAL\" \"$REMOTE\"
+
+[difftool "icdiff"]
+  cmd = /usr/local/bin/icdiff --line-numbers \"$LOCAL\" \"$REMOTE\"
+
+[difftool]
+  prompt = false
+
+[pager]
+  diff = delta --dark  --syntax-theme Nord
+  #--minus-style="#3f0001" --minus-emph-style="#901011" --plus-style="#002800" --plus-emph-style="#006000"
+  show = delta --dark --syntax-theme Nord
+  #--minus-style="#3f0001" --minus-emph-style="#901011" --plus-style="#002800" --plus-emph-style="#006000"
+  ; diff = diff-so-fancy | less --tabs=1,5 -R -+X -+F
+  ; show = diff-so-fancy | less --tabs=1,5 -R -+X -+F
+
+[branch "master"]
+  mergeoptions = --ff-only
+
+#So Many Colors!
+[color]
+  ui = false
+  branch = auto
+  diff = auto
+  status = auto
+[color "diff"]
+  meta = yellow bold
+  commit = green bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = "red bold 52"
+  newNormal = "green bold"
+  newHighlight = "green bold 22"
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+#fix typos
+[help]
+  autocorrect = 1
+
+#private info
+; [include]
+  ; path = ~/.gitconfig.local
+
+[merge]
+  tool = "beyondcompare"
+
+#############
+## Aliases ##
+#############
+
+[alias]
+# New 2024
+  # Add all files (tracked and not) to a savepoint commit
+  save = '!git add --all && git commit --message "SAVEPOINT: $(date -u +\"%Y-%m-%dT%H:%M:%S\")"'
+
+  # Add all tracked files and create a wip commit"
+  wip = '!git add --update && git commit --message "WIP: $(date -u +\"%Y-%m-%dT%H:%M:%S\")"'
+
+  # revert the save or wip commit
+  undo = 'reset HEAD^ --mixed'
+
+  #todo
+  # wt-clone = 'scrips/git-clone-bare-for-worktree'
+  # wt-switch = 'ln -s ???`
+  # wt-checkout = 'pushd .. && git workspace add $1 && popd'
+
+
+
+  branch-name = "!git symbolic-ref --short HEAD"
+  publish = "!git push -u origin `git branch-name`"
+  track = "!git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`"
+  cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+  stat = status --untracked-files=no
+  st = status -sb
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  apply = apply --ignore-space-change --ignore-whitespace
+  sub = submodule update --init --recursive
+  co = checkout
+  cp = cherry-pick
+
+  # find closest root for current branch. Useful for rebase --onto
+  find-root = "!git show-branch \
+                | grep '\\*' \
+                | grep -v $(git rev-parse --abbrev-ref HEAD) \
+                | head -n1 \
+                | sed 's/.*\\[\\(.*\\)\\].*/\\1/' \
+                | sed 's/[\\^~].*//'"
+
+  recent = "!f() { \
+              format=\"%(if)%(HEAD)%(then)%(color: italic)*%(else)%(color: reset)@%(end)~~%09~~%(color:yellow)%(refname:short)~~%09~~%(color:red)%(objectname:short)~~%09~~%(color:green)(%(committerdate:relative))~~%09~~%(color:blue)%(authorname) %(color:yellow)%(upstream:track)~~%09~~%(color:white)%(contents:subject)%(color:reset)\"; \
+              git for-each-ref --color=always --count=${1:-20} --sort=-committerdate \"refs/heads/\"  --format=\"$format\" | column -t -s $'~~\t~~' | fzf --ansi --with-nth 2.. -n 1  --height 30% --reverse | awk '{print $2}' | xargs git checkout; \
+            }; f"
+
+  # fs, feature start
+  fs = !git flow feature start $1 && grb publish feature/$1
+
+  # ff, feature finish. Always push to the final branch (remote) if it was successful
+  ff = !git flow feature finish $1 && git push && git push origin :$1
+
+  # list what hasn't been pushed
+  unpushed = "log --branches --not --remotes\n  --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset\n  %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit"
+
+  # Wipe out all changes in the working tree
+  wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+
+### Log Views ###
+  l = "!git log --show-signature"
+ # log graph
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+ # one line commits /wo dates
+  ls = log --pretty=format:"%C(yellow)%h\\ %G?%Cred%d\\ %Creset%s%Cblue\\ [%cn]\\ %C(yellow)%GS\\ %GK" --decorate
+
+ # Commits w/ changed files
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+
+ # One line commits w/ short dates
+  lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+
+ # One line commits w/ default dates
+  ldl = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=default
+
+ # One line commits w/ relative dates
+  ldr = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+
+ #modified files in last commit
+  dl = "!git ll -1"
+
+ # Clean commit history for scripting
+  lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+
+ # Modified files of a specific revision
+  lr  = "!f() { \
+          if $(git cat-file -e $1); then \
+            git ll "$1"^.."$1"; \
+          else \
+            echo "Invalid revision"; \
+          fi \
+         }; f"
+
+  filelog = log -u
+  fl = log -u
+
+### Diff Variations ###
+  ds = diff --staged
+
+ # Diff last commit
+  dlc = diff --cached HEAD^
+
+ # Diff a specific revision
+  diff-revision  = "!f() { \
+                      if $(git cat-file -e $1); then \
+                        git diff "$1"^.."$1"; \
+                      else \
+                        echo "Invalid revision"; \
+                      fi \
+                    }; f"
+  dr  = !git diff-revision
+
+  diff-from = "!f() { \
+                 if $(git cat-file -e $1); then \
+                   git diff "$1"..HEAD; \
+                 else \
+                   echo "Invalid revision"; \
+                 fi \
+               }; f"
+  df = "!git diff-from"
+
+### Searching ###
+ # find filename in repo
+  f = "!git ls-files | grep -i"
+ # grep... ignore .gitignore files, case insensitive, no binaries
+  grep = grep -Ii --exclude-standard
+  gr = grep
+
+  # Search All branches, in all time
+  hgrep = !git rev-list --all | xargs git grep
+
+  ; flog = "!f() { \
+  ;   hash=$(git log --color=always --format=\"%C(auto)%h%d %s %C(black)%C(bold)%cr\" \"$@\" | fzf | awk '{print $1}'); \
+  ;   git diff $hash \
+  ;         }; f"
+
+### Stash Helpers ###
+  sgrep = "!f() { \
+              IFS=$'\\n'; \
+              STASHES=$(git stash list --format=\"%gd\"); \
+              for i in $STASHES; do\
+                git stash show -p $i | grep --color -H --label=\"$i\" \"$1\"; \
+              done \
+            }; f"
+
+### Tags ###
+lasttag = describe --tags --abbrev=0
+lt = lasttag
+
+### Help ###
+  h = help
+  la = "!f() { \
+          GREP_COLOR=\"1;34\"; \
+          git config --list | grep 'alias' | sed -e 's/^alias\\.\\([^=]*\\)=\\(.*\\)/\\1 => \\2 /g' | egrep --color '^\\S*'; \
+        }; f"
+
+  ignored = !git ls-files -v | grep "^[[:lower:]]"
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+  required = true
+	process = git-lfs filter-process
+
+[log]
+  decorate = true
+[difftool "beyondcompare"]
+  cmd = ~/.share/beyondcompare-diff.sh $LOCAL $REMOTE $MERGED
+  path =
+[mergetool "beyondcompare"]
+  cmd = /usr/local/bin/bcomp $LOCAL $REMOTE $BASE $MERGED
+  trustExitCode = true
+
+[submodule]
+  fetchJobs = 4
+
+[pull]
+	rebase = merges
+	; rebase = preserve
+
+; [branch]
+	; autosetuprebase = true
+
+[rerere]
+  autoupdate = true
+  enabled = 0
+
+[difftool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
+	path = -ro
+
+[mergetool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	trustExitCode = true
+
+[diff "sopsdiffer"]
+	textconv = sops -d
+
+
+; [user]
+; 	name = Peter Brunner
+; 	email = pbrunner@gmail.com
+; [commit]
+; 	template = /Users/pbrunner/.stCommitMsg
+[status]
+	showUntrackedFiles = no
+[init]
+	defaultBranch = main
+
+;  ---------------------------------------------------------------------
+
+; Lugoues
+; [includeIf "gitdir:**/github.com/lugoues/"]
+  ; path = ~/.local/share/git/lugoues.config
+[includeIf "hasconfig:remote.*.url:https://github.com/lugoues/**"]
+  path = ~/.local/share/git/lugoues.config
+[includeIf "hasconfig:remote.*.url:*github.com:lugoues/**"]
+  path = ~/.local/share/git/lugoues.config
+
+; Beaconpoint
+[includeIf "hasconfig:remote.*.url:*bitbucket.org:beaconpoint/**"]
+  path = ~/.local/share/git/lugoues-thortech.config
+
+; LGHTR
+[includeIf "gitdir:~/dev/bitbucket.org/beaconpoint/"]
+  path = ~/.local/share/git/lugoues-lghtr.config
+[includeIf "hasconfig:remote.*.url:*bitbucket.org:beaconpoint/**"]
+  path = ~/.local/share/git/lugoues-lghtr.config
+[includeIf "gitdir:~/dev/github.com/beacon-point/"]
+  path = ~/.local/share/git/lugoues-lghtr.config
+[includeIf "hasconfig:remote.*.url:*github.com:beacon-point/**"]
+  path = ~/.local/share/git/lugoues-lghtr.config
+
+; Psykhe
+[includeIf "gitdir:~/dev/github.com/psykhe/"]
+  path = ~/.local/share/git/lugoues-psykhe.config
+[includeIf "hasconfig:remote.*.url:*github.com:psykhe-fashion/**"]
+  path = ~/.local/share/git/lugoues-psykhe.config
+
+[include]
+  path = ~/.gitconfig.local
+
