@@ -9,6 +9,10 @@ pager: bat
 
 diff:
   command: delta
+  args:
+    - --features="side-by-side"
+    - --line-numbers
+    - --hunk-header-style=omit
 
 git:
   autoPush: true
