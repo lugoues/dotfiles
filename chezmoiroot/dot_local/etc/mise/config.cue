@@ -155,7 +155,6 @@ tools: {
 	"aqua:sharkdp/vivid": version: "latest"
 	"aqua:showwin/speedtest-go": "latest"
 	"aqua:sigstore/cosign":      "latest"
-	//"aqua:slimtoolkit/slim":     "latest"
 	"aqua:sxyazi/yazi":          "latest"
 	"aqua:txn2/kubefwd":         "latest"
 	"aqua:wagoodman/dive":       "latest"
@@ -180,4 +179,5 @@ tools: {
   "aqua:getsops/sops":      "latest"
   "aqua:FiloSottile/age":   "latest"
   "aqua:gopasspw/gopass":   "latest"
+  "aqua:tailscale/tailscale": "latest"
 }
