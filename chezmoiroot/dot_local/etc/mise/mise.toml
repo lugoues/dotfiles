@@ -16,7 +16,6 @@ tools."aqua:cue-lang/cue" = "latest"
 run = "$EDITOR {{ env.MISE_CONFIG_DIR }}/config.cue"
 depends_post=["compile"]
 
-
 [hooks]
 [[watch_files]]
 patterns = [
