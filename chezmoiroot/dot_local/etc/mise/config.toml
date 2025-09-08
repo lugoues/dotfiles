@@ -1,6 +1,7 @@
 [env]
 ATUIN_CONFIG_DIR = '{{ env.HOME }}/.local/etc/atuin'
 BAT_CONFIG_PATH = '{{ env.HOME }}/.local/etc/bat.conf'
+GOPASS_CONFIG = '{{ env.HOME }}/.local/etc/gopass/config.yaml'
 SHELDON_CONFIG_DIR = '{{ env.HOME }}/.local/etc/sheldon'
 STARSHIP_CONFIG = '{{ env.HOME }}/.local/etc/starship/config.toml'
 ZELLIJ_CONFIG_DIR = '{{ env.HOME }}/.local/etc/zellij'
@@ -14,11 +15,10 @@ experimental = true
 idiomatic_version_file_enable_tools = []
 jobs = 8
 lockfile = true
-unix_default_file_shell_args = 'zsh'
+unix_default_file_shell_args = 'zsh -c -o errexit'
 unix_default_inline_shell_args = 'zsh -c -o errexit'
 use_file_shell_for_executable_tasks = true
 use_versions_host = false
-ignored_config_paths = ['{{ env.HOME }}/.local/share/chezmoi/mise.toml']
 
 [settings.npm]
 bun = true
@@ -29,6 +29,7 @@ uvx = true
 [tools]
 'aqua:99designs/aws-vault' = 'latest'
 'aqua:ClementTsang/bottom' = 'latest'
+'aqua:FiloSottile/age' = 'latest'
 'aqua:FiloSottile/mkcert' = 'latest'
 'aqua:Lifailon/lazyjournal' = 'latest'
 'aqua:antonmedv/fx' = 'latest'
@@ -38,6 +39,8 @@ uvx = true
 'aqua:direnv/direnv' = 'latest'
 'aqua:ducaale/xh' = 'latest'
 'aqua:dylanaraps/neofetch' = 'latest'
+'aqua:getsops/sops' = 'latest'
+'aqua:gopasspw/gopass' = 'latest'
 'aqua:ip7z/7zip' = 'latest'
 'aqua:jqlang/jq' = 'latest'
 'aqua:junegunn/fzf' = 'latest'
@@ -48,20 +51,20 @@ uvx = true
 'aqua:sachaos/viddy' = 'latest'
 'aqua:showwin/speedtest-go' = 'latest'
 'aqua:sigstore/cosign' = 'latest'
-# 'aqua:slimtoolkit/slim' = 'latest'
 'aqua:sxyazi/yazi' = 'latest'
+'aqua:tailscale/tailscale' = 'latest'
 'aqua:txn2/kubefwd' = 'latest'
 'aqua:wagoodman/dive' = 'latest'
 'aqua:zellij-org/zellij' = 'latest'
 bun = 'latest'
-rust = "latest"
-# cargo = 'latest'
+cargo = 'latest'
 cargo-binstall = 'latest'
 'cargo:broot' = 'latest'
 'cargo:du-dust' = 'latest'
 'cargo:eza' = 'latest'
 node = 'latest'
 'pipx:nicolargo/glances' = 'latest'
+rust = 'latest'
 'ubi:tstack/lnav' = 'v0.13.0'
 
 [tools.'aqua:1password/cli']
@@ -73,7 +76,7 @@ postinstall = "  _zsh_cache_completion rg \\\n    rg --generate complete-zsh"
 version = 'latest'
 
 [tools.'aqua:ajeetdsouza/zoxide']
-postinstall = "\t _zsh_cache_init zoxide \\\n\t\tzoxide init zsh;"
+postinstall = "\t_zsh_cache_init zoxide \\\n\t\tzoxide init zsh;"
 version = 'latest'
 
 [tools.'aqua:astral-sh/uv']
@@ -89,7 +92,6 @@ postinstall = "  _zsh_cache_completion crush \\\n    crush completion zsh;"
 version = 'latest'
 
 [tools.'aqua:charmbracelet/glow']
-# postinstall = "  _zsh_cache_completion glow \\\n    glow complestion zsh;"
 version = 'latest'
 
 [tools.'aqua:dandavison/delta']
@@ -121,7 +123,6 @@ postinstall = "  _zsh_cache_completion bat \\\n    bat --completion zsh;"
 version = 'latest'
 
 [tools.'aqua:sharkdp/fd']
-# postinstall = "  echo ${MISE_TOOL_INSTALL_PATH};\n  cp ${MISE_TOOL_INSTALL_PATH}/autocomplete/_fd ~/.local/share/zsh/completion/;"
 version = 'latest'
 
 [tools.'aqua:sharkdp/vivid']
