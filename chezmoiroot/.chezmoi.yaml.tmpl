@@ -3,7 +3,7 @@
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
 {{- end -}}
 
-sourceDir = {{ .chezmoi.sourceDir | quote }}
+sourceDir: {{ .chezmoi.sourceDir | quote }}
 encryption: "gpg"
 verbose: true
 #pager: bat
