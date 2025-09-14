@@ -1,6 +1,6 @@
 zle -N zle-keymap-select
 
-export PATH="~/.local/bin:$PATH"
+export PATH="~/.local/bin:/opt/homebrew/bin:$PATH"
 export MISE_CONFIG_DIR="~/.local/etc/mise"
 
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
