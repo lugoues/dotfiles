@@ -22,6 +22,7 @@ env: {
 	STARSHIP_CONFIG:    "{{ env.HOME }}/.local/etc/starship/config.toml"
 	SHELDON_CONFIG_DIR: "{{ env.HOME }}/.local/etc/sheldon"
   GOPASS_CONFIG:      "{{ env.HOME }}/.local/etc/gopass/config.yaml"
+  JIRA_TUI_CONFIG_FILE: "{{ env.HOME }}/.local/etc/jira_tui/beacon-point.yaml"
 }
 
 tools: {
@@ -179,5 +180,5 @@ tools: {
   "aqua:getsops/sops":      "latest"
   "aqua:FiloSottile/age":   "latest"
   "aqua:gopasspw/gopass":   "latest"
-  "aqua:tailscale/tailscale": "latest"
+  "aqua:tailscale/tailscale":    "latest"
 }

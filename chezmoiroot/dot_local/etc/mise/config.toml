@@ -2,6 +2,7 @@
 ATUIN_CONFIG_DIR = '{{ env.HOME }}/.local/etc/atuin'
 BAT_CONFIG_PATH = '{{ env.HOME }}/.local/etc/bat.conf'
 GOPASS_CONFIG = '{{ env.HOME }}/.local/etc/gopass/config.yaml'
+JIRA_TUI_CONFIG_FILE = '{{ env.HOME }}/.local/etc/jira_tui/beacon-point.yaml'
 SHELDON_CONFIG_DIR = '{{ env.HOME }}/.local/etc/sheldon'
 STARSHIP_CONFIG = '{{ env.HOME }}/.local/etc/starship/config.toml'
 ZELLIJ_CONFIG_DIR = '{{ env.HOME }}/.local/etc/zellij'
