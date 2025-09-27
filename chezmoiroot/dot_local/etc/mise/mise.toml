@@ -7,19 +7,17 @@ _.file = "{{ env.MISE_CONFIG_DIR }}/env.yaml"
 rust = "latest"
 
 [tasks.compile]
-run="cue eval {{ env.MISE_CONFIG_DIR }}/config.cue --out toml >| {{ env.MISE_CONFIG_DIR }}/config.toml"
+run = "cue eval {{ env.MISE_CONFIG_DIR }}/config.cue --out toml >| {{ env.MISE_CONFIG_DIR }}/config.toml"
 sources = ["{{ env.MISE_CONFIG_DIR }}/config.cue"]
 outputs = ["{{ env.MISE_CONFIG_DIR }}/config.toml"]
 
 [tasks.edit]
 tools."aqua:cue-lang/cue" = "latest"
 run = "$EDITOR {{ env.MISE_CONFIG_DIR }}/config.cue"
-depends_post=["compile"]
+depends_post = ["compile"]
 
 [hooks]
 [[watch_files]]
-patterns = [
- "{{ env.MISE_CONFIG_DIR }}/config.cue"
-]
+patterns = ["{{ env.MISE_CONFIG_DIR }}/config.cue"]
 run = "mise run compile"
 
