@@ -52,7 +52,7 @@ fi
 #}}}
 
 # Term colors {{{
-  alias ssh='TERM=xterm-256color ssh'
+  # alias ssh='TERM=xterm-256color ssh'
   alias brew='TERM=xterm-256color brew'
   alias cmus='cmus_tmux -n music cmus'
   alias tmux='TERM=xterm-256color tmux'
