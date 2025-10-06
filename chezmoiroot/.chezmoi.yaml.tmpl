@@ -6,10 +6,10 @@
 sourceDir: {{ .chezmoi.sourceDir | quote }}
 encryption: "gpg"
 verbose: true
-pager: mise bat -- bat
+pager: mise exec "aqua:sharkdp/bat" -- bat
 
 diff:
-  command: mise delta -- delta
+  command: mise exec "aqua:dandavison/delta" -- delta
   args:
     - --features="side-by-side"
     - --line-numbers
