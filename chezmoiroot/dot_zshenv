@@ -1,8 +1,8 @@
 export PATH=~/.local/bin:$PATH
 export SHELL="$(which zsh)"
 export MISE_CONFIG_DIR="~/.local/etc/mise"
-export MISE_TRUSTED_CONFIG_PATHS="~/.local/etc/mise"
 export MISE_IGNORED_CONFIG_PATHS="~/.local/share/chezmoi/mise.toml"
+export MISE_TRUSTED_CONFIG_PATHS="${MISE_TRUSTED_CONFIG_PATHS}:~/.local/etc/mise"
 eval "$(mise activate zsh)"
 
 
