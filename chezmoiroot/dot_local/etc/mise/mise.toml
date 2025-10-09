@@ -25,13 +25,13 @@ run = "mise run compile"
 depends = ['mise:extract-postinstall-hooks','sheldon:source-update']
 
 [tasks.'sheldon:source-update']
-hidden=true
+hide=true
 depends=['mise:extract-postinstall-hooks']
-tools.sheldon = "latest"
+tools.'aqua:rossmacarthur/sheldon' = "latest"
 run = 'sheldon source --update'
 
 [tasks.'mise:extract-postinstall-hooks']
-hidden = true
+hide = true
 tools.deno = "latest"
 run='''
 #!/usr/bin/env -S deno run --allow-run --allow-read
@@ -67,6 +67,4 @@ for (const config of configs) {
     }
   }
 }
-echo "Updating Sheldon"
-sheldon source --update
 '''
