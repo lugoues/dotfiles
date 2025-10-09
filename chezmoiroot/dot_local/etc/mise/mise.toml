@@ -26,7 +26,7 @@ depends = ['mise:extract-postinstall-hooks','sheldon:source-update']
 
 [tasks.'sheldon:source-update']
 hidden=true
-depends=['']
+depends=['mise:extract-postinstall-hooks']
 tools.sheldon = ""
 run = 'sheldon source --update'
 
