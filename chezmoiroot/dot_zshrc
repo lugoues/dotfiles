@@ -10,3 +10,8 @@ eval "$(~/.local/bin/mise activate zsh)"
 eval "$(sheldon source)"
 
 export LS_COLORS="$(vivid generate nord)"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/pbrunner/.lmstudio/bin"
+# End of LM Studio CLI section
+
