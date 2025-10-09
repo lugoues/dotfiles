@@ -22,6 +22,16 @@ patterns = ["{{ env.MISE_CONFIG_DIR }}/config.cue"]
 run = "mise run compile"
 
 [tasks.run-hooks]
+depends = ['mise:extract-postinstall-hooks','sheldon:source-update']
+
+[tasks.'sheldon:source-update']
+hidden=true
+depends=['']
+tools.sheldon = ""
+run = 'sheldon source --update'
+
+[tasks.'mise:extract-postinstall-hooks']
+hidden = true
 tools.deno = "latest"
 run='''
 #!/usr/bin/env -S deno run --allow-run --allow-read
