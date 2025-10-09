@@ -303,31 +303,31 @@ lt = lasttag
 
 ; Lugoues
 ; [includeIf "gitdir:**/github.com/lugoues/"]
-  ; path = ~/.local/share/git/lugoues.config
+  ; path = ~/.local/etc/git/lugoues.config
 [includeIf "hasconfig:remote.*.url:https://github.com/lugoues/**"]
-  path = ~/.local/share/git/lugoues.config
+  path = ~/.local/etc/git/lugoues.config
 [includeIf "hasconfig:remote.*.url:*github.com:lugoues/**"]
-  path = ~/.local/share/git/lugoues.config
+  path = ~/.local/etc/git/lugoues.config
 
 ; Beaconpoint
 [includeIf "hasconfig:remote.*.url:*bitbucket.org:beaconpoint/**"]
-  path = ~/.local/share/git/lugoues-thortech.config
+  path = ~/.local/etc/git/lugoues-thortech.config
 
 ; LGHTR
 [includeIf "gitdir:~/dev/bitbucket.org/beaconpoint/"]
-  path = ~/.local/share/git/lugoues-lghtr.config
+  path = ~/.local/etc/git/lugoues-lghtr.config
 [includeIf "hasconfig:remote.*.url:*bitbucket.org:beaconpoint/**"]
-  path = ~/.local/share/git/lugoues-lghtr.config
+  path = ~/.local/etc/git/lugoues-lghtr.config
 [includeIf "gitdir:~/dev/github.com/beacon-point/"]
-  path = ~/.local/share/git/lugoues-lghtr.config
+  path = ~/.local/etc/git/lugoues-lghtr.config
 [includeIf "hasconfig:remote.*.url:*github.com:beacon-point/**"]
-  path = ~/.local/share/git/lugoues-lghtr.config
+  path = ~/.local/etc/git/lugoues-lghtr.config
 
 ; Psykhe
 [includeIf "gitdir:~/dev/github.com/psykhe/"]
-  path = ~/.local/share/git/lugoues-psykhe.config
+  path = ~/.local/etc/git/lugoues-psykhe.config
 [includeIf "hasconfig:remote.*.url:*github.com:psykhe-fashion/**"]
-  path = ~/.local/share/git/lugoues-psykhe.config
+  path = ~/.local/etc/git/lugoues-psykhe.config
 
 [include]
   path = ~/.gitconfig.local
