@@ -57,6 +57,6 @@ for (const config of configs) {
     }
   }
 }
-
+echo "Updating Sheldon"
 sheldon source --update
 '''
