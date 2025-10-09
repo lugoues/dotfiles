@@ -2,6 +2,7 @@ typeset -U fpath # make paths unique
 fpath=(
   $( (( ${+ELLIPSIS_PATH} )) && echo $ELLIPSIS_PATH/comp)
   $( (( $+command[brew] )) && echo $(brew --prefix)/share/zsh/site-functions)
+  "~/.local/share/zsh/completions"
   $fpath
 )
 export FPATH
