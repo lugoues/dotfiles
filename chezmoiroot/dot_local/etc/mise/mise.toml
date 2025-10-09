@@ -21,3 +21,41 @@ depends_post = ["compile"]
 patterns = ["{{ env.MISE_CONFIG_DIR }}/config.cue"]
 run = "mise run compile"
 
+[tasks.run-hooks]
+tools.deno = "latest"
+run='''
+#!/usr/bin/env -S deno run --allow-run --allow-read
+
+import { parse } from "jsr:@std/toml";
+
+const { stdout } = await new Deno.Command("mise", {
+  args: ["config", "ls", "--json"],
+}).output();
+
+const configs = JSON.parse(new TextDecoder().decode(stdout));
+
+for (const config of configs) {
+  const content = await Deno.readTextFile(config.path);
+  const parsed = parse(content) as any;
+
+  if (parsed.tools) {
+    for (const [tool, settings] of Object.entries(parsed.tools)) {
+      if ((settings as any).postinstall) {
+        const cmd = (settings as any).postinstall;
+
+        console.log(`Executing postinstall for ${tool}`);
+
+        const result = await new Deno.Command("zsh", {
+          args: ["-c", cmd],
+        }).output();
+
+        if (!result.success) {
+          console.error(`Failed for ${tool}`);
+          console.error(new TextDecoder().decode(result.stderr));
+        }
+      }
+    }
+  }
+}
+
+'''
