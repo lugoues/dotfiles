@@ -5,6 +5,7 @@ _.file = "{{ env.MISE_CONFIG_DIR }}/env.yaml"
 "aqua:cue-lang/cue" = "latest"
 "aqua:watchexec/watchexec" = "latest"
 rust = "latest"
+deno = "latest"
 
 [tasks.compile]
 run = "cue eval {{ env.MISE_CONFIG_DIR }}/config.cue --out toml >| {{ env.MISE_CONFIG_DIR }}/config.toml"
@@ -27,12 +28,12 @@ depends = ['mise:extract-postinstall-hooks','sheldon:source-update']
 [tasks.'sheldon:source-update']
 hide=true
 depends=['mise:extract-postinstall-hooks']
-tools.'aqua:rossmacarthur/sheldon' = "latest"
+tools.'aqua:rossmacarthur/sheldon' = ''
 run = 'sheldon source --update'
 
 [tasks.'mise:extract-postinstall-hooks']
 hide = true
-tools.deno = "latest"
+tools.deno = ""
 run='''
 #!/usr/bin/env -S deno run --allow-run --allow-read
 
