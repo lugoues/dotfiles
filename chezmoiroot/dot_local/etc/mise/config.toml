@@ -13,13 +13,12 @@ auto_install = true
 disable_backends = ['asdf', 'gem', 'vfox']
 exec_auto_install = true
 experimental = true
-idiomatic_version_file_enable_tools = []
 jobs = 8
-lockfile = true
+lockfile = false
 unix_default_file_shell_args = 'zsh -c -o errexit'
 unix_default_inline_shell_args = 'zsh -c -o errexit'
 use_file_shell_for_executable_tasks = true
-use_versions_host = false
+use_versions_host = true
 
 [settings.npm]
 bun = true
@@ -47,7 +46,7 @@ uvx = true
 'aqua:junegunn/fzf' = 'latest'
 'aqua:mikefarah/yq' = 'latest'
 'aqua:neovim/neovim' = 'latest'
-'aqua:oven-sh/bun' = 'latest'
+# 'aqua:oven-sh/bun' = 'latest'
 'aqua:pypa/pipx' = 'latest'
 'aqua:sachaos/viddy' = 'latest'
 'aqua:showwin/speedtest-go' = 'latest'
