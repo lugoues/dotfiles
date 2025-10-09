@@ -58,4 +58,5 @@ for (const config of configs) {
   }
 }
 
+sheldon source --update
 '''
