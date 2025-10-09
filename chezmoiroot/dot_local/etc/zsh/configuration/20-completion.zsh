@@ -2,6 +2,9 @@
 # Completion enhancements
 #
 
+autoload -Uz compinit && compinit
+
+
 [[ ${TERM} != 'dumb' ]] && () {
   # Load and initialize the completion system
   local zdumpfile
