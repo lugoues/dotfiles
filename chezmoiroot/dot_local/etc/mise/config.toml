@@ -102,9 +102,9 @@ version = 'latest'
 postinstall = "  _zsh_cache_init navi \\\n    navi widget zsh;"
 version = '2.23.0'
 
-[tools.'aqua:jdx/mise']
-postinstall = "  mise plugins update --yes;\n  _zsh_cache_completion mise \\\n    mise completion zsh;"
-version = 'latest'
+# [tools.'aqua:jdx/mise']
+# postinstall = "  mise plugins update --yes;\n  _zsh_cache_completion mise \\\n    mise completion zsh;"
+# version = 'latest'
 
 [tools.'aqua:jj-vcs/jj']
 postinstall = "  _zsh_cache_completion jj \\\n    jj util completion zsh;"
