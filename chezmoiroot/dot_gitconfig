@@ -309,18 +309,10 @@ lt = lasttag
 [includeIf "hasconfig:remote.*.url:*github.com:lugoues/**"]
   path = ~/.local/etc/git/lugoues.config
 
-; Beaconpoint
-[includeIf "hasconfig:remote.*.url:*bitbucket.org:beaconpoint/**"]
-  path = ~/.local/etc/git/lugoues-thortech.config
-
 ; LGHTR
-[includeIf "gitdir:~/dev/bitbucket.org/beaconpoint/"]
+[includeIf "gitdir:~/dev/github.com/Beacon-Point/"]
   path = ~/.local/etc/git/lugoues-lghtr.config
-[includeIf "hasconfig:remote.*.url:*bitbucket.org:beaconpoint/**"]
-  path = ~/.local/etc/git/lugoues-lghtr.config
-[includeIf "gitdir:~/dev/github.com/beacon-point/"]
-  path = ~/.local/etc/git/lugoues-lghtr.config
-[includeIf "hasconfig:remote.*.url:*github.com:beacon-point/**"]
+[includeIf "hasconfig:remote.*.url:*github.com:Beacon-Point/**"]
   path = ~/.local/etc/git/lugoues-lghtr.config
 
 ; Psykhe
