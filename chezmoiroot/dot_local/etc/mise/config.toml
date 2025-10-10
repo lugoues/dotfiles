@@ -63,7 +63,7 @@ cargo-binstall = 'latest'
 'cargo:du-dust' = 'latest'
 'cargo:eza' = 'latest'
 node = 'latest'
-'pipx:nicolargo/glances' = 'latest'
+# 'pipx:nicolargo/glances' = 'latest'
 rust = 'latest'
 'ubi:tstack/lnav' = 'v0.13.0'
 
