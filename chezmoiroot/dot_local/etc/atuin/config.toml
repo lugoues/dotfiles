@@ -46,4 +46,6 @@ common_subcommands = [
   "tmux",
   "yarn",
   "gt",
+  "mise",
+  "phare"
 ]
