@@ -1,6 +1,6 @@
 style = "compact"
 inline_height = 15
-filter_mode = "host"
+filter_mode = "directory"
 auto_sync = true
 #search_mode = "fuzzy"
 search_mode = "skim"
@@ -49,3 +49,9 @@ common_subcommands = [
   "mise",
   "phare"
 ]
+
+[sync]
+records = true
+
+[daemon]
+enabled = true
