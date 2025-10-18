@@ -15,3 +15,14 @@ export LS_COLORS="$(vivid generate nord)"
 export PATH="$PATH:/Users/pbrunner/.lmstudio/bin"
 # End of LM Studio CLI section
 
+# Attempt to start atuin daemon
+if command -v start-stop-daemon &>/dev/null; then
+  start-stop-daemon --status --name atuin \
+    || start-stop-daemon \
+      --start --oknodo \
+      --name atuin \
+      --pidfile ~/.local/atuin.pid \
+      --startas $(mise which atuin) \
+      --background \
+      -- daemon
+fi
