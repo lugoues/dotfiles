@@ -20,6 +20,7 @@ unix_default_inline_shell_args = 'zsh -c -o errexit'
 use_file_shell_for_executable_tasks = true
 use_versions_host = true
 idiomatic_version_file_enable_tools = []
+plugin_autoupdate_last_check_duration = '2d'
 
 [settings.npm]
 bun = true
@@ -47,11 +48,12 @@ uvx = true
 'aqua:junegunn/fzf' = 'latest'
 'aqua:mikefarah/yq' = 'latest'
 'aqua:neovim/neovim' = 'latest'
+# 'ubi:neovim/neovim' = { version = "nightly", extract_all = "true", exe = "nvim", bin_path = "bin" }
 # 'aqua:oven-sh/bun' = 'latest'
 'aqua:pypa/pipx' = 'latest'
 'aqua:sachaos/viddy' = 'latest'
 'aqua:showwin/speedtest-go' = 'latest'
-# 'aqua:sigstore/cosign' = 'latest'
+'aqua:sigstore/cosign' = 'latest'
 'aqua:sxyazi/yazi' = 'latest'
 'aqua:tailscale/tailscale' = 'latest'
 'aqua:txn2/kubefwd' = 'latest'
@@ -64,7 +66,7 @@ cargo-binstall = 'latest'
 'cargo:du-dust' = 'latest'
 'cargo:eza' = 'latest'
 node = 'latest'
-# 'pipx:nicolargo/glances' = 'latest'
+'pipx:nicolargo/glances' = 'latest'
 rust = 'latest'
 'ubi:tstack/lnav' = 'v0.13.0'
 
@@ -103,9 +105,9 @@ version = 'latest'
 postinstall = "  _zsh_cache_init navi \\\n    navi widget zsh;"
 version = '2.23.0'
 
-# [tools.'aqua:jdx/mise']
-# postinstall = "  mise plugins update --yes;\n  _zsh_cache_completion mise \\\n    mise completion zsh;"
-# version = 'latest'
+[tools.'aqua:jdx/mise']
+postinstall = "  mise plugins update --yes;\n  _zsh_cache_completion mise \\\n    mise completion zsh;"
+version = 'latest'
 
 [tools.'aqua:jj-vcs/jj']
 postinstall = "  _zsh_cache_completion jj \\\n    jj util completion zsh;"
