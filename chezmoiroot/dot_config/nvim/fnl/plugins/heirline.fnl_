@@ -1,0 +1,175 @@
+(import-macros {: lazy-spec!} :lvim.lazy
+               {: component! } :lvim.heirline)
+
+(local colors {:black "#000000"})
+
+(local signs {:error ""
+              :warning ""
+              :info ""
+              :hint ""
+              :ok ""})
+
+; (local mode-keys {"n" :normal})
+(local mode-names {:n "NORMAL"
+                   :i "INSERT"})
+(local mode-highlights {:n {:fg "white" :bg "blue"}
+                        :i {:fg "white" :bg "blue"}})
+(λ mode->key [mode] (or (if (. mode-names mode) mode :n)))
+
+(λ rgb->hsl [rgb])
+
+(λ configure []
+  (let [devicons (require :nvim-web-devicons)
+        heirline (require :heirline)
+        conditions (require :heirline.conditions)
+        utils (require :heirline.utils)]
+
+
+    (component! mode-component
+      {:init (λ [self] (let [{: mode} (vim.api.nvim_get_mode)]
+                          (set self.mode (mode->key mode))))
+
+        :hl (λ [self] (. mode-highlights self.mode))
+        :update ["ModeChanged"]
+        :components [;icon
+                     {:provider (λ [self]
+                                  (.. " " "x" " "))}
+                     ; text
+                     {:provider (λ [self]
+                                  (.. (. mode-names self.mode) " "))}]})
+
+    (component! file-component
+      {:init (λ [self]
+               (set self.filename (vim.api.nvim_buf_get_name 0)))
+        :hl {:fg "white"}
+        :components [; icon
+                     {:init (λ [self]
+                              (let [filename self.filename
+                                    ext (vim.fn.fnamemodify filename ":e")
+                                    [icon icon-color] (devicons.get_icon_color filename ext {:default true})]
+                                (set self.icon icon)
+                                (set self.icon-color icon-color)))
+                      :provider (λ  [self]
+                                  (and self.icon (.. self.icon " ")))
+                      :hl (λ [self]
+                            {:fg self.icon-color})}
+
+                      ; working directory
+                     {:init (λ [self]
+                              (let [cwd (-> (vim.fn.getcwd 0)
+                                            (vim.fn.fnamemodify ":~"))
+                                    local-dir? (vim.fn.haslocaldir 0)
+                                    icon (.. (if local-dir? "l" "g") "  ")]
+                                (set self.icon icon)
+                                (set self.cwd cwd)))
+                      :hl {:fg "blue" :bold true}
+                      :flexible 1
+                      :components [{:provider (λ [self]
+                                                (let [has-trail? (= (self.cwd:sub -1) "/")]
+                                                  (.. self.icon self.cwd (when (not has-trail?) "/"))))}
+                                   {:provider (λ [self]
+                                                (let [cwd (vim.fn.pathshorten self.cwd)
+                                                      has-trail? (= (self.cwd:sub -1) "/")]
+                                                  (.. self.icon cwd (when (not has-trail?) "/"))))}
+                                   {:provider ""}]}
+
+                      ; name
+                     {:init (λ [self]
+                             (let [filename (vim.fn.fnamemodify self.filename ":t")]
+                               (set self.lfilename filename)))
+                      :hl {:fg (. (utils.get_highlight :Directory) :fg)}
+                      :flexible 2
+                      :components [{:provider (λ [self] self.lfilename)}
+                                   {:provider (λ [self] (vim.fn.pathshorten self.lfilename))}]}
+
+                     ; flags
+                     {:components [{:condition #vim.bo.modified
+                                    :provider "[+]"
+                                    :hl {:fg "green"}}
+                                   {:condition #(not (or vim.bo.modifiable vim.bo.readonly))
+                                    :provider ""
+                                    :hl {:fg "orange"}}]}]})
+    (lambda lsp-client-names [];shorten?
+      (let [active-clients (vim.lsp.get_active_clients {:bufnr 0})]
+        (accumulate [client-names ""
+                     _idx c (ipairs active-clients)]
+                    (.. client-names " " c.name))))
+
+    (component! git-component
+                {:dependencies [:lewis6991/gitsigns.nvim]
+                 :condition conditions.is_git_repo
+                 :init (λ [self]
+                         (let [{: added : removed : changed} vim.b.gitsigns_status_dict
+                               added? (and added (not (= added 0)))
+                               removed? (and removed (not (= removed 0)))
+                               changed? (and changed (not (= changed 0)))]
+
+                           {: added?
+                            : removed?
+                            : removed
+                            : changed?
+                            : changed}))
+                 :components [{:provider "xxxxxxxxx"}
+                              {:condition (λ [self] self.added?)
+                               :provider (λ [self] (.. "+" self.added))
+                               :hl {:fg "green"}}
+                              {:condition (λ [self] self.removed?)
+                               :provider (λ [self] (.. "-" self.removed))
+                               :hl {:fg "red"}}
+                              {:condition (λ [self] self.changed?)
+                               :provider (λ [self] (.. "~" self.changed))
+                               :hl {:fg "yellow"}}]})
+
+    (component! lsp-component
+      {
+       :condition conditions.lsp_attached
+       :update ["LspAttach" "LspDetach"]
+       :surround ["a" "b" "blue"]
+       :components [
+                    {:provider (λ [self] (.. "" (lsp-client-names)))}]})
+    ;
+    ; (component! git-component
+    ;   {:hl {:fg "white"}
+    ;    :update {1 "User" :pattern "HeirlineGitBranchUpdate"}
+    ;    :components [{:provider (λ [self] "gittttt")}]})
+    ;
+
+    (component! location-component
+      {:init (λ [self]
+               (let [mode (vim.fn.mode 1)
+                     key (mode->key mode)]
+                  (set self.mode key)))
+       ; :hl (λ [self]
+             ; (. mode-highlights self.mode)
+       :flexible 4
+       :components [{:provider "Ln %2l, Col %-2c"}
+                    {:provider "%2l:%-2c"}]})
+
+    (component! progress-component
+      {:init (λ [self]
+               (let [{: mode} (vim.api.nvim_get_mode)]
+                  (set self.mode (mode->key mode))))
+       ; :hl (λ [self]
+             ; (. mode-highlights self.mode)
+       :surround [["" "" ] "green"]
+       :provider "  %P "})
+
+    (component! align-component {:provider "%=" :hl {:fg "white" :bg ""}})
+
+    [(utils.surround ["" ""] "blue" mode-component)
+     (utils.surround ["" "" ] "green" file-component)
+     (utils.surround ["" "" ] "gray" git-component)
+     align-component
+     lsp-component
+     (utils.surround ["" ""]  "green" location-component)
+     (utils.surround ["" ""]  "blue" progress-component)]))
+
+
+
+(lazy-spec! :rebelot/heirline.nvim
+            {:lazy false
+             :dependencies [:nvim-tree/nvim-web-devicons
+                            :lewis6991/gitsigns.nvim]
+             :config (λ []
+                      (let [heirline (require :heirline)]
+                        (heirline.setup {:statusline (configure)})))})
