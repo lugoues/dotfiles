@@ -18,6 +18,11 @@ apply = ["defer"]
 github = "zsh-users/zsh-autosuggestions"
 apply = ["defer"]
 
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"
+tag = "v1.2.0"
+apply = ["defer"]
+
 [plugins.powerlevel10k]
 github = "romkatv/powerlevel10k"
 
