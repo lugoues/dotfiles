@@ -44,6 +44,7 @@ uvx = true
 'aqua:getsops/sops' = 'latest'
 'aqua:gopasspw/gopass' = 'latest'
 'aqua:ip7z/7zip' = 'latest'
+'aqua:jdx/usage' = 'latest'
 'aqua:jqlang/jq' = 'latest'
 'aqua:junegunn/fzf' = 'latest'
 'aqua:mikefarah/yq' = 'latest'
