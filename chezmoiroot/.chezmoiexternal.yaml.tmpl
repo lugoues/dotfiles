@@ -9,7 +9,7 @@
 {{- end }}
 
 
-{{ if not lookPath "mise" }}
+{{ if not (lookPath "mise") }}
   ".local/bin/mise":
     type: "file"
     url: {{ gitHubLatestReleaseAssetURL "jdx/mise" (printf "mise-*-%s-%s" .chezmoi.os .chezmoi.arch) }}
