@@ -41,5 +41,5 @@ inline = '''
   tic -x ~/.local/etc/terminfo/tmux.terminfo;
 '''
 
-[plugins.compinit]
-inline = "autoload -Uz compinit && zsh-defer compinit"
+# [plugins.compinit]
+# inline = "autoload -Uz compinit && zsh-defer compinit"
