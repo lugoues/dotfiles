@@ -5,7 +5,7 @@ export MISE_CONFIG_DIR="~/.local/etc/mise"
 
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
 
-eval "$(~/.local/bin/mise activate zsh)"
+eval "$(mise activate zsh)"
 
 eval "$(sheldon source)"
 
@@ -15,14 +15,6 @@ export LS_COLORS="$(vivid generate nord)"
 export PATH="$PATH:/Users/pbrunner/.lmstudio/bin"
 # End of LM Studio CLI section
 
-# Attempt to start atuin daemon
-if command -v start-stop-daemon &>/dev/null; then
-  start-stop-daemon --status --name atuin \
-    || start-stop-daemon \
-      --start --oknodo \
-      --name atuin \
-      --pidfile ~/.local/atuin.pid \
-      --startas $(mise which atuin) \
-      --background \
-      -- daemon
-fi
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+source <(carapace _carapace)
