@@ -8,6 +8,7 @@ packages:
     - pkg-config
     - gpg
     - gpg-agent
+    - ncurses-term
   darwin:
     brews:
       - git
