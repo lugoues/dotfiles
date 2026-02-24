@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+{{- if .devcontainer }}
+sudo tee /etc/init.d/atuin-daemon > /dev/null << 'EOF'
+#!/bin/sh
+DAEMON="/usr/local/bin/mise"
+DAEMON_ARGS="exec aqua:atuinsh/atuin@latest -- atuin daemon"
+USER="{{ .chezmoi.username }}"
+PIDFILE="/var/run/atuin-daemon.pid"
+
+case "$1" in
+  start)
+    start-stop-daemon --start --background --make-pidfile \
+      --pidfile "$PIDFILE" --chuid "$USER" \
+      --exec "$DAEMON" -- $DAEMON_ARGS
+    ;;
+  stop)
+    start-stop-daemon --stop --pidfile "$PIDFILE" --retry 5
+    rm -f "$PIDFILE"
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+esac
+EOF
+
+sudo chmod +x /etc/init.d/atuin-daemon
+
+sudo update-rc.d atuin-daemon defaults
+sudo service atuin-daemon start
+
+{{- end }}

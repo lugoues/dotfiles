@@ -36,6 +36,7 @@ gopass:
 
 data:
   osid: {{ $osid | quote }}
+  devcontainer: {{ ne (stat "/.devcontainer") nil }}
 
 env:
   MISE_VERBOSE: "1"
