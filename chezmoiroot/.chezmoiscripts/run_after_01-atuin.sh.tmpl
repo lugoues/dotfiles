@@ -10,6 +10,13 @@ PIDFILE="/var/run/atuin-daemon.pid"
 
 case "$1" in
   start)
+    if start-stop-daemon --status --pidfile "$PIDFILE" 2>/dev/null; then
+      echo "Already running"
+      exit 0
+    fi
+
+    rm -f /home/$USER/.local/share/atuin/atuin.sock "$PIDFILE"
+
     start-stop-daemon --start --background --make-pidfile \
       --pidfile "$PIDFILE" --chuid "$USER" \
       --exec "$DAEMON" -- $DAEMON_ARGS
@@ -17,6 +24,13 @@ case "$1" in
   stop)
     start-stop-daemon --stop --pidfile "$PIDFILE" --retry 5
     rm -f "$PIDFILE"
+    ;;
+  status)
+    start-stop-daemon --status --pidfile "$PIDFILE"
+    case "$?" in
+      0) echo "Running" ;;
+      *) echo "Not running" ;;
+    esac
     ;;
   restart)
     $0 stop
