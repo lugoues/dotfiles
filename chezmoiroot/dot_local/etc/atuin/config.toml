@@ -3,7 +3,9 @@ inline_height = 15
 filter_mode = "directory"
 auto_sync = true
 #search_mode = "fuzzy"
-search_mode = "skim"
+
+search_mode = "daemon-fuzzy"
+#search_mode = "skim"
 exit_mode = "return-query"
 
 
@@ -55,3 +57,4 @@ records = true
 
 [daemon]
 enabled = true
+autostart = true
