@@ -3,7 +3,8 @@ inline_height = 15
 filter_mode = "host"
 auto_sync = true
 #search_mode = "fuzzy"
-search_mode = "skim"
+# search_mode = "skim"
+search_mode = "daemon-fuzzy"
 exit_mode = "return-query"
 
 
@@ -47,3 +48,10 @@ common_subcommands = [
   "yarn",
   "gt",
 ]
+
+[sync]
+records = true
+
+[daemon]
+enabled = true
+autostart = true
