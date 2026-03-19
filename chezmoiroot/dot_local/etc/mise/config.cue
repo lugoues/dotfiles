@@ -6,12 +6,13 @@ settings: {
 	exec_auto_install: true
 	jobs:              8
 	idiomatic_version_file_enable_tools: []
-	lockfile:          true
-	use_versions_host: false
+	lockfile:          false
+	use_versions_host: true
 	disable_backends: ["asdf", "gem", "vfox"]
 	unix_default_file_shell_args:        "zsh -c -o errexit"
 	unix_default_inline_shell_args:      "zsh -c -o errexit"
 	use_file_shell_for_executable_tasks: true
+  plugin_autoupdate_last_check_duration: "2d"
 }
 
 env: {
@@ -54,6 +55,8 @@ tools: {
 		postinstall: ##"""
       _zsh_cache_init atuin \
         atuin init zsh --disable-up-arrow;
+      _zsh_cache_init atuin_hex \
+        atuin hex init;
       _zsh_cache_completion atuin \
         atuin gen-completions --shell zsh;
     """##
@@ -181,4 +184,6 @@ tools: {
   "aqua:FiloSottile/age":   "latest"
   "aqua:gopasspw/gopass":   "latest"
   "aqua:tailscale/tailscale":    "latest"
+  "aqua:carapace-sh/carapace-bin": "latest"
+  "aqua:twistedpair/google-cloud-sdk": "latest"
 }

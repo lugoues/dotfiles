@@ -1,11 +1,9 @@
 style = "compact"
 inline_height = 15
-filter_mode = "directory"
+filter_mode = "host"
 auto_sync = true
 #search_mode = "fuzzy"
-
-search_mode = "daemon-fuzzy"
-#search_mode = "skim"
+search_mode = "skim"
 exit_mode = "return-query"
 
 
@@ -48,13 +46,4 @@ common_subcommands = [
   "tmux",
   "yarn",
   "gt",
-  "mise",
-  "phare"
 ]
-
-[sync]
-records = true
-
-[daemon]
-enabled = true
-autostart = true

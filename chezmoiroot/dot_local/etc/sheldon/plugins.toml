@@ -20,7 +20,6 @@ apply = ["defer"]
 
 [plugins.fzf-tab]
 github = "Aloxaf/fzf-tab"
-tag = "v1.2.0"
 apply = ["defer"]
 
 [plugins.powerlevel10k]
@@ -46,5 +45,5 @@ inline = '''
   tic -x ~/.local/etc/terminfo/tmux.terminfo;
 '''
 
-# [plugins.compinit]
-# inline = "autoload -Uz compinit && zsh-defer compinit"
+[plugins.compinit]
+inline = "autoload -Uz compinit && zsh-defer compinit"

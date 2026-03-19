@@ -6,3 +6,6 @@
   export ELLIPSIS_PATH=~/.local/share/ellipsis
 #}}}
 
+
+export LEDGER_FILE=~/Documents/finance/active.journal
+
