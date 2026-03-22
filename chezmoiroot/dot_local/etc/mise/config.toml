@@ -88,7 +88,7 @@ postinstall = "\t_zsh_cache_completion uv \\\n\t\tuv --generate-shell-completion
 version = 'latest'
 
 [tools.'aqua:atuinsh/atuin']
-postinstall = "  _zsh_cache_init atuin \\\n    atuin init zsh --disable-up-arrow;\n  _zsh_cache_init atuin_hex \\\n    atuin hex init;\n  _zsh_cache_completion atuin \\\n    atuin gen-completions --shell zsh;"
+# postinstall = "  _zsh_cache_init atuin \\\n    atuin init zsh --disable-up-arrow;\n  _zsh_cache_init atuin_hex \\\n    atuin hex init;\n  _zsh_cache_completion atuin \\\n    atuin gen-completions --shell zsh;"
 version = 'latest'
 
 [tools.'aqua:charmbracelet/crush']
