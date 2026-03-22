@@ -9,6 +9,10 @@ eval "$(mise activate zsh)"
 
 eval "$(sheldon source)"
 
+eval "$(atuin hex init)"
+eval "$(atuin init zsh --disable-up-arrow)"
+
+
 export LS_COLORS="$(vivid generate nord)"
 
 # Added by LM Studio CLI (lms)
