@@ -55,8 +55,6 @@ tools: {
 		postinstall: ##"""
       _zsh_cache_init atuin \
         atuin init zsh --disable-up-arrow;
-      _zsh_cache_init atuin_hex \
-        atuin hex init;
       _zsh_cache_completion atuin \
         atuin gen-completions --shell zsh;
     """##
