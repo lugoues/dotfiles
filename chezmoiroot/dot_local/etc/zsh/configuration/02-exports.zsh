@@ -4,6 +4,9 @@
   export CHEATCOLORS=true
   export XDG_CONFIG_HOME=~/.config
   export ELLIPSIS_PATH=~/.local/share/ellipsis
+
+  # Allow / and . to define words
+  export WORDCHARS=${WORDCHARS//[\/.]/}
 #}}}
 
 
