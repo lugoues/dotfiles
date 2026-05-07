@@ -61,7 +61,6 @@ uvx = true
 'aqua:wagoodman/dive' = 'latest'
 'aqua:zellij-org/zellij' = 'latest'
 bun = 'latest'
-cargo = 'latest'
 cargo-binstall = 'latest'
 'cargo:broot' = 'latest'
 'cargo:du-dust' = 'latest'
