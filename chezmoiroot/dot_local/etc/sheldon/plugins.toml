@@ -10,9 +10,9 @@ maybe = "{{ hooks?.pre | nl }} [[ -f {{ name }} ]] && source {{ file }} {{ hooks
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
 
-[plugins.zsh-syntax-highlighting]
-github = "zsh-users/zsh-syntax-highlighting"
-apply = ["defer"]
+# [plugins.zsh-syntax-highlighting]
+# github = "zsh-users/zsh-syntax-highlighting"
+# apply = ["defer"]
 
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
