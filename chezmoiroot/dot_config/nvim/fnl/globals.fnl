@@ -5,6 +5,8 @@
 (g! maplocalleader ";")
 ; (map! [n] " "  "<Nop>")
 
+(g! clipboard :osc52)
+
 (g! inccommand "nosplit")
 
 
