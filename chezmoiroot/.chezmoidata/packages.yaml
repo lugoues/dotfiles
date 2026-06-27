@@ -9,6 +9,8 @@ packages:
     - gpg
     - gpg-agent
     - ncurses-term
+    - cmake
+    - luarocks
   darwin:
     brews:
       - git
