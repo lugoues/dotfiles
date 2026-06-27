@@ -6,6 +6,7 @@ JIRA_TUI_CONFIG_FILE = '{{ env.HOME }}/.local/etc/jira_tui/beacon-point.yaml'
 SHELDON_CONFIG_DIR = '{{ env.HOME }}/.local/etc/sheldon'
 STARSHIP_CONFIG = '{{ env.HOME }}/.local/etc/starship/config.toml'
 ZELLIJ_CONFIG_DIR = '{{ env.HOME }}/.local/etc/zellij'
+ZSH_PATINA_CONFIG_PATH = '{{ env.HOME }}/.local/etc/zsh-patina/config.toml'
 _ZO_DATA_DIR = '{{ env.HOME }}/.local/share/zoxide'
 
 [settings]
@@ -61,13 +62,14 @@ uvx = true
 'aqua:wagoodman/dive' = 'latest'
 'aqua:zellij-org/zellij' = 'latest'
 bun = 'latest'
+# cargo = 'latest'
 cargo-binstall = 'latest'
 'cargo:broot' = 'latest'
 'cargo:du-dust' = 'latest'
 'cargo:eza' = 'latest'
 node = 'latest'
 'pipx:nicolargo/glances' = 'latest'
-rust = "latest"
+rust = 'latest'
 'ubi:tstack/lnav' = 'v0.13.0'
 
 [tools.'aqua:1password/cli']
@@ -129,6 +131,10 @@ version = 'latest'
 version = 'latest'
 
 [tools.'aqua:sharkdp/vivid']
+version = 'latest'
+
+[tools.'github:michel-kraemer/zsh-patina']
+postinstall = "\t_zsh_cache_init zsh-patina \\\n\t\tzsh-patina activate;"
 version = 'latest'
 
 [tools.'npm:@withgraphite/graphite-cli']
