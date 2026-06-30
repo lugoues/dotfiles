@@ -313,11 +313,11 @@ lt = lasttag
 [includeIf "hasconfig:remote.*.url:*github.com:beacon-point/**"]
   path = ~/.local/etc/git/config/lugoues-lghtr.config
 
-; Psykhe
-[includeIf "gitdir:~/dev/github.com/psykhe/"]
-  path = ~/.local/etc/git/config/lugoues-psykhe.config
-[includeIf "hasconfig:remote.*.url:*github.com:psykhe-fashion/**"]
-  path = ~/.local/etc/git/config/lugoues-psykhe.config
+; LGHTR
+[includeIf "gitdir:~/dev/github.com/lghtr/"]
+  path = ~/.local/etc/git/config/lugoues-lghtr.config
+[includeIf "hasconfig:remote.*.url:*github.com:lghtr/**"]
+  path = ~/.local/etc/git/config/lugoues-lghtr.config
 
 # Local Config Override.
 [include]
