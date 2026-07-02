@@ -3,7 +3,6 @@ export SHELL="$(which zsh)"
 export MISE_CONFIG_DIR="~/.local/etc/mise"
 export MISE_TRUSTED_CONFIG_PATHS="~/.local/etc/mise"
 export MISE_IGNORED_CONFIG_PATHS="~/.local/share/chezmoi/mise.toml"
-eval "$(mise activate zsh)"
 
 
 _zsh_cache_init() {
