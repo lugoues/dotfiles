@@ -239,6 +239,10 @@
 lasttag = describe --tags --abbrev=0
 lt = lasttag
 
+### Resign ###
+  resign = "!git rebase --force-rebase origin/main --exec 'GIT_COMMITTER_DATE=\"$(git log -1 --format=%aI)\" git commit --amend --no-edit -S'"
+
+
 ### Help ###
   h = help
   la = "!f() { \
