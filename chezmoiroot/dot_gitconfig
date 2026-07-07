@@ -2,7 +2,7 @@
 	helper =
 
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = /Users/pbrunner/.gitignore_global
   editor=nvim
 	autocrlf = false
   safecrlf=warn
@@ -123,6 +123,8 @@
   co = checkout
   cp = cherry-pick
 
+  resign = "!git rebase --force-rebase origin/main --exec 'GIT_COMMITTER_DATE=\"$(git log -1 --format=%aI)\" git commit --amend --no-edit -S'"
+
   # find closest root for current branch. Useful for rebase --onto
   find-root = "!git show-branch \
                 | grep '\\*' \
@@ -239,10 +241,6 @@
 lasttag = describe --tags --abbrev=0
 lt = lasttag
 
-### Resign ###
-  resign = "!git rebase --force-rebase origin/main --exec 'GIT_COMMITTER_DATE=\"$(git log -1 --format=%aI)\" git commit --amend --no-edit -S'"
-
-
 ### Help ###
   h = help
   la = "!f() { \
@@ -317,11 +315,11 @@ lt = lasttag
 [includeIf "hasconfig:remote.*.url:*github.com:beacon-point/**"]
   path = ~/.local/etc/git/config/lugoues-lghtr.config
 
-; LGHTR
-[includeIf "gitdir:~/dev/github.com/lghtr/"]
-  path = ~/.local/etc/git/config/lugoues-lghtr.config
-[includeIf "hasconfig:remote.*.url:*github.com:lghtr/**"]
-  path = ~/.local/etc/git/config/lugoues-lghtr.config
+; Psykhe
+[includeIf "gitdir:~/dev/github.com/psykhe/"]
+  path = ~/.local/etc/git/config/lugoues-psykhe.config
+[includeIf "hasconfig:remote.*.url:*github.com:psykhe-fashion/**"]
+  path = ~/.local/etc/git/config/lugoues-psykhe.config
 
 # Local Config Override.
 [include]
