@@ -47,3 +47,7 @@ inline = '''
 
 [plugins.compinit]
 inline = "autoload -Uz compinit && zsh-defer compinit"
+
+[plugins.mise]
+inline = '[[ $+commands[mise] ]] && zsh-defer eval $(mise activate zsh)'
+
