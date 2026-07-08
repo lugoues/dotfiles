@@ -51,3 +51,14 @@ inline = "autoload -Uz compinit && zsh-defer compinit"
 [plugins.mise]
 inline = '[[ $+commands[mise] ]] && zsh-defer eval $(mise activate zsh)'
 
+[plugins.carapace]
+github = "carapace-sh/carapace"
+apply=["defer"]
+
+[plugins.carapace.hooks]
+post = '''
+autoload -U compinit && compinit
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+source <(carapace _carapace)
+'''
