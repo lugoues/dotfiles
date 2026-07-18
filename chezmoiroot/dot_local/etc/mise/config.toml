@@ -137,9 +137,9 @@ version = 'latest'
 postinstall = "\t_zsh_cache_init zsh-patina \\\n\t\tzsh-patina activate;"
 version = 'latest'
 
-[tools.'npm:@withgraphite/graphite-cli']
-postinstall = "  _zsh_cache_completion gt \\\n    gt completion;"
-version = 'latest'
+# [tools.'npm:@withgraphite/graphite-cli']
+# postinstall = "  _zsh_cache_completion gt \\\n    gt completion;"
+# version = 'latest'
 
 
 [task.git-resign-local]
