@@ -142,7 +142,7 @@ version = 'latest'
 # version = 'latest'
 
 
-[task.git-resign-local]
+[tasks.git-resign-local]
 run=" git rebase origin/main --force-rebase --exec 'GIT_COMMITTER_DATE=\"$(git log -1 --format=%aI)\" git commit --amend --no-edit -S'"
 
 
