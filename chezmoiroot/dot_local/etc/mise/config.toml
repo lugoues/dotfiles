@@ -22,10 +22,9 @@ unix_default_file_shell_args = 'zsh -c -o errexit'
 unix_default_inline_shell_args = 'zsh -c -o errexit'
 use_file_shell_for_executable_tasks = true
 use_versions_host = true
-npm = { package_manager = "aube"}
 
-# [settings.npm]
-# bun = true
+[settings.npm]
+bun = true
 
 [settings.pipx]
 uvx = true
@@ -141,3 +140,12 @@ version = 'latest'
 [tools.'npm:@withgraphite/graphite-cli']
 postinstall = "  _zsh_cache_completion gt \\\n    gt completion;"
 version = 'latest'
+
+
+[task.git-resign-local]
+run=" git rebase origin/main --force-rebase --exec 'GIT_COMMITTER_DATE=\"$(git log -1 --format=%aI)\" git commit --amend --no-edit -S'"
+
+
+
+
+
