@@ -2,7 +2,7 @@
 	helper =
 
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = /Users/pbrunner/.gitignore_global
   editor=nvim
 	autocrlf = false
   safecrlf=warn
@@ -123,7 +123,7 @@
   co = checkout
   cp = cherry-pick
 
-  resign = "!git rebase --force-rebase origin/main --exec 'GIT_COMMITTER_DATE=\"$(git log -1 --format=%aI)\" git commit --amend --no-edit -S'"
+	resign = !git rebase --force-rebase --committer-date-is-author-date -S $(git merge-base HEAD @{u})
 
   # find closest root for current branch. Useful for rebase --onto
   find-root = "!git show-branch \
