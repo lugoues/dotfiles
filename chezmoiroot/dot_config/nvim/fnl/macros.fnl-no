@@ -2,6 +2,12 @@
 
 ;(local {: str? : nil?} (require :utils))
 
+(import-macros {: lazy-spec! } :lvim.lazy
+               {: exec!
+                : set!
+                : set+
+                : augroup!}  :hibiscus.vim)
+
 (lambda lazy-key! [lhs rhs ?options]
   (let [options (or ?options {})]
     (doto options
@@ -36,6 +42,17 @@
   (tset s obj res)
   (each [k v (pairs obj)] (tset res (deepcopy k s) (deepcopy v s)))
   (setmetatable res (getmetatable obj))))
+
+
+;autocmd TextYankPost * silent! lua vim.hl.hl_op {higroup='Visual', timeout=300}
+
+(augroup! :yank-highlight
+  [[TextYankPost :desc "Highlight on yank]
+   (vim.hl.hl_op (:higroup 'Visual' :timeout 300))])
+
+;autocmd TextPutPost  * silent! lua vim.hl.hl_op {higroup='Visual', timeout=300}
+
+
 
 {: lazy-spec!
  : lazy-key!

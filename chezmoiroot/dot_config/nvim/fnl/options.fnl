@@ -1,10 +1,13 @@
 (import-macros {: set! : rem! : map!} :hibiscus.vim)
 
 ; enable clipboard for macos or X11
-; (when (or (= (vim.fn.executable :pbcopy) 1)
-          ; (vim.os.getenv "$DISPLAY"))
-  (set! clipboard :unnamedplus)
-; )
+(when (or (= (vim.fn.executable :pbcopy) 1)
+          (vim.os.getenv "$DISPLAY"))
+      (set! clipboard :unnamedplus)
+      (set! clipboard nil)
+)
+
+(import-macros {: set! : rem! : map!} :hibiscus.vim)
 
 ;; Encoding
 (set! fileencoding "utf-8")
