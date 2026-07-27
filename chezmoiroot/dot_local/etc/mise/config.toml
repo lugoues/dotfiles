@@ -62,6 +62,8 @@ uvx = true
 'aqua:txn2/kubefwd' = 'latest'
 'aqua:wagoodman/dive' = 'latest'
 'aqua:zellij-org/zellij' = 'latest'
+'npm:@openai/codex' = 'latest'
+'npm:@anthropic-ai/claude-code' = 'latest'
 bun = 'latest'
 # cargo = 'latest'
 cargo-binstall = 'latest'
@@ -80,6 +82,7 @@ rust = 'latest'
   version = 'latest',
   os = ['linux']
 }
+
 
 [tools.'aqua:1password/cli']
 postinstall = "  _zsh_cache_completion op \\\n\t\top completion zsh;"
