@@ -73,7 +73,7 @@ node = 'latest'
 rust = 'latest'
 'ubi:tstack/lnav' = 'v0.13.0'
 'aqua:amir20/dtop' = {
-  version = 'latest'
+  version = 'latest',
   os = ["linux"]
 }
 'github:domcyrus/rustnet' = {
