@@ -9,6 +9,7 @@ ZELLIJ_CONFIG_DIR = '{{ env.HOME }}/.local/etc/zellij'
 ZSH_PATINA_CONFIG_PATH = '{{ env.HOME }}/.local/etc/zsh-patina/config.toml'
 _ZO_DATA_DIR = '{{ env.HOME }}/.local/share/zoxide'
 
+
 [settings]
 auto_install = true
 disable_backends = ['asdf', 'gem', 'vfox']
