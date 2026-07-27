@@ -60,4 +60,4 @@ autostart = true
 [search]
 recency_score_multiplier = 10.0
 frequency_score_multiplier = 0.8
-frecency_score_multiplier = 2.0
+frecency_score_multiplier = 1.0
