@@ -72,8 +72,14 @@ node = 'latest'
 'pipx:nicolargo/glances' = 'latest'
 rust = 'latest'
 'ubi:tstack/lnav' = 'v0.13.0'
-'aqua:amir20/dtop' = 'latest'
-'github:domcyrus/rustnet' = 'latest'
+'aqua:amir20/dtop' = {
+  version = 'latest'
+  os = ["linux"]
+}
+'github:domcyrus/rustnet' = {
+  version = 'latest',
+  os = ['linux']
+}
 
 [tools.'aqua:1password/cli']
 postinstall = "  _zsh_cache_completion op \\\n\t\top completion zsh;"
