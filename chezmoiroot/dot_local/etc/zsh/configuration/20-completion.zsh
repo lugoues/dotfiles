@@ -1,16 +1,16 @@
 #
 # Completion enhancements
 #
-
-autoload -Uz compinit && compinit
-
+# compinit is NOT called here. This file is sourced synchronously and early via
+# sheldon's [plugins.configuration], which is before zsh-completions loads and
+# before postinstall-generated completions land on fpath, so a dump built here
+# would be missing entries. The single compinit lives in plugins.toml, deferred,
+# and runs after everything that adds to fpath. Only one call site, on purpose.
+#
+# zstyles are read at completion time rather than at compinit time, so setting
+# them here ahead of that deferred compinit is fine.
 
 [[ ${TERM} != 'dumb' ]] && () {
-  # Load and initialize the completion system
-  local zdumpfile
-  zstyle -s ':zim:completion' dumpfile 'zdumpfile' || zdumpfile="${ZDOTDIR:-${HOME}}/.zcompdump"
-  autoload -Uz compinit && compinit -C -d ${zdumpfile}
-
   #
   # Zsh options
   #

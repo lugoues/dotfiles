@@ -6,6 +6,8 @@ _.file = "{{ env.MISE_CONFIG_DIR }}/env.yaml"
 "aqua:watchexec/watchexec" = "latest"
 rust = "latest"
 deno = "latest"
+sheldon = "latest"
+delta = "latest"
 
 [tasks.compile]
 run = "cue eval {{ env.MISE_CONFIG_DIR }}/config.cue --out toml >| {{ env.MISE_CONFIG_DIR }}/config.toml"

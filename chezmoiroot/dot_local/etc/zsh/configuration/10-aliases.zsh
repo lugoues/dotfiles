@@ -103,23 +103,6 @@ if (( ! ${+PAGER} )); then
   fi
 fi
 
-# # exa {{{
-#   if [ $commands[exa] ]; then
-#     alias ls='exa'                                                         # ls
-#     alias l='exa -lbF --git'                                               # list, size, type, git
-#     alias ll='exa -lbF --git'                                              # long list
-#     alias llm='exa -lbGF --git --sort=modified'                            # long list, modified date sort
-#     alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale'  # all list
-#     alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # all + extended list
-#
-#     # speciality views
-#     alias lS='exa -1'                                                       # one column, just names
-#     alias lt='exa --tree --level=2'
-#     alias xtree='exa -lhT --git --color always | less -r'
-#   fi
-# #}}}
-
-
 if (( ${+commands[eza]} )); then
   alias ls='eza'
   alias ll='eza -l'
@@ -147,7 +130,3 @@ if (( ${+commands[chezmoi]} )); then
   alias cm="chezmoi"
   alias cme="chezmoi edit"
 fi
-
-# Fix Navi Layout
-# alias navi="navi --fzf-overrides '  --height 40%'"
-# alias navi="navi --fzf-overrides ' --no-exact  --height 40%'"

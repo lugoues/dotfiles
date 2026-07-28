@@ -11,9 +11,11 @@ packages:
     - ncurses-term
     - cmake
     - luarocks
+    - ripgrep
+    - fzf
   darwin:
     brews:
       - git
       - gpg
     casks:
-      - slack
+      - ghostty

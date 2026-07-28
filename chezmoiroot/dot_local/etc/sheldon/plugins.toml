@@ -4,61 +4,40 @@ shell = "zsh"
 defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
 maybe = "{{ hooks?.pre | nl }} [[ -f {{ name }} ]] && source {{ file }} {{ hooks?.post | nl }}"
 
-
-[plugins]
-
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
 
-# [plugins.zsh-syntax-highlighting]
-# github = "zsh-users/zsh-syntax-highlighting"
-# apply = ["defer"]
+[plugins.powerlevel10k]
+github = "romkatv/powerlevel10k"
+
+[plugins.configuration]
+local = "~/.local/etc/zsh/configuration"
+
+# Cached tool init that must be in place before the first prompt, e.g. starship.
+# Written by run_onchange_after_20-cache-shell-init.sh, not checked in.
+[plugins.zsh-init]
+local = "~/.local/share/zsh/init.d"
+
+[plugins.zshrc-local]
+inline = "[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local"
 
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 apply = ["defer"]
 
-[plugins.fzf-tab]
-github = "Aloxaf/fzf-tab"
-apply = ["defer"]
-
-[plugins.powerlevel10k]
-github = "romkatv/powerlevel10k"
-
-[plugins.zsh-init]
-local = "~/.local/share/zsh/init.d"
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
 apply = ["defer"]
 
 [plugins.commands]
 local = "~/.local/etc/zsh/commands"
 apply = ["defer"]
 
-[plugins.configuration]
-local = "~/.local/etc/zsh/configuration"
-
-[plugins.zshrc-local]
-inline = "[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local"
-
-[plugins.term-info]
-inline = '''
-  tic -x ~/.local/etc/terminfo/xterm-256color-italic.terminfo;
-  tic -x ~/.local/etc/terminfo/tmux.terminfo;
-'''
-
 [plugins.compinit]
 inline = "autoload -Uz compinit && zsh-defer compinit"
 
-[plugins.mise]
-inline = '[[ $+commands[mise] ]] && zsh-defer eval $(mise activate zsh)'
-
-[plugins.carapace]
-github = "carapace-sh/carapace"
-apply=["defer"]
-
-[plugins.carapace.hooks]
-post = '''
-autoload -U compinit && compinit
-export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
-zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
-source <(carapace _carapace)
-'''
+# Deferred tool init, e.g. patina. Last on purpose: zsh-defer runs its queue in
+# the order entries appear here, so everything above will be loaded prior.
+[plugins.zsh-init-defer]
+local = "~/.local/share/zsh/init-defer.d"
+apply = ["defer"]

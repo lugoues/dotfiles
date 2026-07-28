@@ -8,10 +8,14 @@
 {{- $arch = "x64" }}
 {{- end }}
 
+{{- $miseVersion := .versions.mise -}}
+{{- $miseOs := get (dict "darwin" "macos" "linux" "linux") .chezmoi.os -}}
+{{- $miseArch := get (dict "amd64" "x64" "arm64" "arm64") .chezmoi.arch -}}
+{{- $miseSlug := printf "mise-%s-%s-%s" $miseVersion $miseOs $miseArch -}}
 
-{{ if not (lookPath "mise") }}
-  ".local/bin/mise":
-    type: "file"
-    url: {{ gitHubLatestReleaseAssetURL "jdx/mise" (printf "mise-*-%s-%s" .chezmoi.os .chezmoi.arch) }}
-    executable: true
-{{ end }}
+# [".local/bin/mise"]
+# type = "archive-file"
+# url = "https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/{{ $miseSlug }}.tar.gz"
+# path = "mise/bin/mise"
+# executable = true
+# refreshPeriod = "168h"
