@@ -8,10 +8,10 @@
 {{- $arch = "x64" }}
 {{- end }}
 
-{{- $miseVersion := .versions.mise -}}
-{{- $miseOs := get (dict "darwin" "macos" "linux" "linux") .chezmoi.os -}}
-{{- $miseArch := get (dict "amd64" "x64" "arm64" "arm64") .chezmoi.arch -}}
-{{- $miseSlug := printf "mise-%s-%s-%s" $miseVersion $miseOs $miseArch -}}
+#{{- $miseVersion := .versions.mise -}}
+#{{- $miseOs := get (dict "darwin" "macos" "linux" "linux") .chezmoi.os -}}
+#{{- $miseArch := get (dict "amd64" "x64" "arm64" "arm64") .chezmoi.arch -}}
+#{{- $miseSlug := printf "mise-%s-%s-%s" $miseVersion $miseOs $miseArch -}}
 
 # [".local/bin/mise"]
 # type = "archive-file"

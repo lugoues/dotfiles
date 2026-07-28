@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# Installs every tool in the mise config. run_onchange_ keys off the hash below,
+# so this re-runs whenever that config changes and not otherwise.
+#
+# packages hash: {{ include "dot_local/etc/mise/config.toml" | sha256sum }}
+#
+# after_ so both the mise binary (fetched by .chezmoiexternal.toml.tmpl) and the
+# config file itself are in place before this runs.
+
+set -eu
+
+# mise_bin="${HOME}/.local/bin/mise"
+config_dir="${HOME}/.local/etc/mise"
+
+# Exported here rather than inherited. MISE_CONFIG_DIR is set in
+# .local/etc/zsh/.zshenv, but chezmoi runs scripts under bash, which never reads
+# it. Without this mise discovers no config at all and `mise install` silently
+# succeeds having installed nothing. `mise trust` is unaffected because it takes
+# an explicit path.
+export MISE_CONFIG_DIR="${config_dir}"
+
+mise trust "${config_dir}/config.toml"
+mise install --verbose

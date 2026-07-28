@@ -1,0 +1,30 @@
+{{ if eq .osid "linux-debian" -}}
+#!/bin/bash
+#
+# Install Debian packages - see .chezmoidata/packages.yaml
+#
+# run_onchange_: the package list is rendered into this file, so editing
+# packages.yaml is what re-runs the install. Nothing else does.
+
+set -eu
+
+# The devcontainer runs as a non-root user; base images often run as root with
+# no sudo installed.
+sudo=""
+if [ "$(id -u)" -ne 0 ]; then
+	sudo="sudo"
+fi
+
+export DEBIAN_FRONTEND=noninteractive
+
+packages=(
+{{ range .packages.debian }}	{{ . | quote }}
+{{ end -}}
+)
+$sudo apt-get update
+$sudo apt install -y extrepo
+$sudo extrepo enable mise
+
+$sudo apt-get update
+$sudo apt-get install --yes "${packages[@]}"
+{{ end -}}

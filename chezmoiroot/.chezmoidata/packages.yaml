@@ -13,9 +13,11 @@ packages:
     - luarocks
     - ripgrep
     - fzf
+    - mise
   darwin:
     brews:
       - git
       - gpg
+      - mise
     casks:
       - ghostty
