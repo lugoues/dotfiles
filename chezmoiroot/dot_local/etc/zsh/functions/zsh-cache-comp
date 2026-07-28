@@ -1,0 +1,57 @@
+emulate -L zsh
+setopt local_options no_unset
+
+local name=
+if [[ ${1-} == --name ]]; then
+  name=$2; shift 2
+fi
+
+(( $# )) || { print -u2 "usage: zsh-cache-completion [--name CMD] <command ...>"; return 2 }
+
+local spec=${MISE_TOOL_NAME:-$1}
+local dir=${ZSH_COMPLETIONS_DIR:-$HOME/.local/share/zsh/completions}
+mkdir -p -- "$dir" || return 1
+
+local tmp
+tmp=$(mktemp -- "$dir/.tmp.XXXXXX" 2>/dev/null || mktemp "$dir/.tmp.XXXXXX") || return 1
+trap 'rm -f -- "$tmp"' EXIT INT TERM
+
+if ! "$@" >| "$tmp"; then
+  print -u2 "zsh-cache-completion: command failed for ${spec}: $*"
+  return 1
+fi
+if [[ ! -s $tmp ]]; then
+  print -u2 "zsh-cache-completion: empty output for ${spec}: $*"
+  return 1
+fi
+
+local first
+read -r first < "$tmp"
+if [[ $first != '#compdef '* ]]; then
+  print -u2 "zsh-cache-completion: no #compdef tag for ${spec}, not a zsh completion"
+  return 1
+fi
+
+if [[ -z $name ]]; then
+  local -a tags=( ${=first#\#compdef } )
+  local t
+  for t in $tags; do
+    [[ $t == -* ]] && continue                 # -P, -p, -N flags
+    [[ $t == *[\*\?\[\]]* ]] && continue       # glob patterns like git-*
+    name=$t; break
+  done
+fi
+[[ -z $name ]] && { print -u2 "zsh-cache-completion: could not derive name for ${spec}"; return 1 }
+name=${name:t}
+[[ $name == [A-Za-z0-9._-]## ]] || { print -u2 "zsh-cache-completion: unsafe name '$name'"; return 1 }
+
+if ! zsh -f -n -- "$tmp"; then
+  print -u2 "zsh-cache-completion: invalid zsh syntax for ${spec}: $*"
+  return 1
+fi
+
+mv -f -- "$tmp" "$dir/_$name" || return 1
+trap - EXIT INT TERM
+
+# invalidate; next interactive shell rebuilds once
+rm -f -- ${ZSH_COMPDUMP:-$HOME/.zcompdump}(N) ${ZSH_COMPDUMP:-$HOME/.zcompdump}.zwc(N)

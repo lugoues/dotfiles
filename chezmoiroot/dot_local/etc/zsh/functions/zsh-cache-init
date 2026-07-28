@@ -1,0 +1,54 @@
+emulate -L zsh
+setopt local_options no_unset
+
+local -a chars
+local dir=$HOME/.local/share/zsh/init.d
+if [[ ${1-} == --defer ]]; then
+  dir=$HOME/.local/share/zsh/init-defer.d
+  shift
+fi
+
+local spec=${MISE_TOOL_NAME:-}
+[[ -z $spec ]] && { print -u2 "zsh-cache-init: MISE_TOOL_NAME unset"; return 2 }
+(( $# )) || { print -u2 "usage: zsh-cache-init [--defer] <command ...>"; return 2 }
+
+local name= c hex i
+for (( i = 1; i <= $#spec; i++ )); do
+  c=$spec[i]
+  if [[ $c == [A-Za-z0-9._-] ]]; then
+    name+=$c
+  else
+    printf -v hex '%%%02X' "'$c"
+    name+=$hex
+  fi
+done
+[[ $name == .* ]] && name=%2E${name#.}
+
+local out=$dir/${name}.zsh
+mkdir -p -- "$dir" || return 1
+
+local tmp
+tmp=$(mktemp -- "$dir/.tmp.XXXXXX" 2>/dev/null || mktemp "$dir/.tmp.XXXXXX") || return 1
+trap 'rm -f -- "$tmp"' EXIT INT TERM
+
+{
+  print -r -- "# zsh-cache-init ${spec}"
+  print -r -- "# version: ${MISE_TOOL_VERSION:-unknown}"
+} >| "$tmp"
+
+if ! "$@" >> "$tmp"; then
+  print -u2 "zsh-cache-init: command failed for ${spec}: $*"
+  return 1
+fi
+if (( $(wc -l < "$tmp") <= 2 )); then
+  print -u2 "zsh-cache-init: empty output for ${spec}: $*"
+  return 1
+fi
+if ! zsh -f -n -- "$tmp"; then
+  print -u2 "zsh-cache-init: invalid zsh syntax for ${spec}: $*"
+  return 1
+fi
+
+mv -f -- "$tmp" "$out" || return 1
+trap - EXIT INT TERM
+zcompile -R -- "$out" 2>/dev/null
