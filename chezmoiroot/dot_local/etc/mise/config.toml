@@ -70,6 +70,7 @@ node = "latest"
 "aqua:getsops/sops"                = { version = "latest" }
 "aqua:gopasspw/gopass"             = { version = "latest" }
 "aqua:ip7z/7zip"                   = { version = "latest" }
+"aqua:jdx/mise"                    = { version = "latest", postinstall = "mise plugins update --yes;\n  zsh_cache_comp mise completion zsh;" }
 "aqua:jj-vcs/jj"                   = { version = "latest", postinstall = "zsh_cache_comp jj util completion zsh;" }
 "aqua:jqlang/jq"                   = { version = "latest" }
 "aqua:junegunn/fzf"                = { version = "latest" }
