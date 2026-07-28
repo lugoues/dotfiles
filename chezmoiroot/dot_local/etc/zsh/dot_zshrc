@@ -1,0 +1,16 @@
+
+if command -v mise >/dev/null; then
+  eval "$(mise activate zsh)"
+else
+  print -u2 "zshrc: mise not found, skipping activate"
+fi
+
+if command -v sheldon >/dev/null; then
+  if command -v starship-multi-config >/dev/null; then
+  export STARSHIP_CONFIG="$(starship-multi-config ~/.local/etc/starship/config.toml ~/.local/etc/starship/config.d/*.toml)"
+  fi
+
+  eval "$(sheldon source)"
+else
+  print -u2 "zshrc: sheldon not found, no plugins loaded"
+fi
