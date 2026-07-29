@@ -27,6 +27,10 @@ for (const [name, versions] of Object.entries(
 // dedupe across configs; later config wins
 const pending = new Map < string, string> ();
 for (const config of JSON.parse(await mise("config", "ls", "--json")) as { path: string }[]) {
+  if (config.path.endsWith(".toml") == false) {
+    continue
+  }
+
   let parsed: Record<string, unknown>;
   try {
     parsed = parse(await Deno.readTextFile(config.path)) as Record<string, unknown>;
