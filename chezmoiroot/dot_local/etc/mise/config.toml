@@ -31,14 +31,14 @@ use_versions_host = true
 includes = [
   "{{ env.MISE_CONFIG_DIR }}/tasks"
 ]
-[tasks.run-hooks]
-depends = ['extract-postinstall-hooks'] # ,'sheldon:source-update'
+[tasks.'dot:run-hooks']
+depends = ['dot:extract-postinstall-hooks', 'dot:sheldon:source-update'] # ,
 
-[tasks.'sheldon:source-update']
+[tasks.'dot:sheldon:source-update']
 hide=true
-depends=['extract-postinstall-hooks']
+depends=['dot:extract-postinstall-hooks']
 tools.'aqua:rossmacarthur/sheldon' = ''
-run = 'sheldon source --update'
+run = 'sheldon lock'
 
 
 # # "github:domcyrus/rustnet" = { version = "latest", os = ["linux"] }
