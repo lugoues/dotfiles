@@ -23,17 +23,20 @@ npm.package_manager = "aube"
 pipx.uvx = true
 plugin_autoupdate_last_check_duration = "2d"
 unix_default_file_shell_args = "zsh -c -o errexit"
-unix_default_inline_shell_args = "zsh -x -c -o errexit"
+unix_default_inline_shell_args = "zsh -c -o errexit"
 use_file_shell_for_executable_tasks = true
 use_versions_host = true
 
-
+[task_config]
+includes = [
+  "{{ env.MISE_CONFIG_DIR }}/tasks"
+]
 [tasks.run-hooks]
-depends = ['mise:extract-postinstall-hooks','sheldon:source-update']
+depends = ['extract-postinstall-hooks'] # ,'sheldon:source-update'
 
 [tasks.'sheldon:source-update']
 hide=true
-depends=['mise:extract-postinstall-hooks']
+depends=['extract-postinstall-hooks']
 tools.'aqua:rossmacarthur/sheldon' = ''
 run = 'sheldon source --update'
 
