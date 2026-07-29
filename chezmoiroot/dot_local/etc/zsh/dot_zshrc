@@ -4,3 +4,10 @@ if command -v mise >/dev/null; then
 else
   print -u2 "zshrc: mise not found, skipping activate"
 fi
+
+
+if command -v sheldon >/dev/null; then
+  eval "$(sheldon source)"
+else
+  print -u2 "zshrc: sheldon not found, no plugins loaded"
+fi
