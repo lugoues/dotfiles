@@ -93,7 +93,7 @@ node = "latest"
 "aqua:wagoodman/dive"              = { version = "latest" }
 "aqua:watchexec/watchexec"         = { version = "latest" }
 "aqua:zellij-org/zellij"           = { version = "latest" }
-"github:michel-kraemer/zsh-patina" = { version = "latest", postinstall = "zsh-cache-init zsh-patina activate;" }
+"github:michel-kraemer/zsh-patina" = { version = "latest", postinstall = "zsh-cache-init --defer zsh-patina activate;" }
 "npm:@anthropic-ai/claude-code"    = { version = "latest" }
 "npm:@openai/codex"                = { version = "latest" }
 

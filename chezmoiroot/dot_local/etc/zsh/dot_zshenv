@@ -6,6 +6,7 @@ export MISE_IGNORED_CONFIG_PATHS="~/.local/share/chezmoi/mise.toml"
 export ZSH_COMPLETIONS_DIR=$HOME/.local/share/zsh/completions
 export ZSH_COMPDUMP=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump
 fpath=( $ZSH_COMPLETIONS_DIR $HOME/.local/etc/zsh/functions $fpath )
+autoload -Uz $HOME/.local/etc/zsh/functions/*(N.:t)
 
 # sheldon treats a missing `local` directory as a hard error and drops its whole
 # config, so these must exist before zshrc runs.
