@@ -11,3 +11,6 @@ autoload -Uz $HOME/.local/etc/zsh/functions/*(N.:t)
 # sheldon treats a missing `local` directory as a hard error and drops its whole
 # config, so these must exist before zshrc runs.
 mkdir -p ~/.local/share/zsh/{init.d,init-defer.d,completions};
+
+# no idea why...
+source ~/.local/etc/zsh/configuration/00-paths.zsh
