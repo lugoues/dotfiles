@@ -1,4 +1,4 @@
-export PATH=~/.local/bin:$PATH
+export PATH=~/.local/bin:/opt/homebrew/bin:$PATH
 export SHELL="$(which zsh)"
 export MISE_CONFIG_DIR="~/.local/etc/mise"
 export MISE_TRUSTED_CONFIG_PATHS="~/.local/etc/mise"
