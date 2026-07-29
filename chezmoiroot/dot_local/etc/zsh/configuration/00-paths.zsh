@@ -2,7 +2,7 @@ typeset -U fpath # make paths unique
 fpath=(
   $( (( $+commands[brew] )) && echo $(brew --prefix)/share/zsh/site-functions)
   ~/.local/share/zsh/completions
-  ~/.local/share/zsh/functions
+  ~/.local/etc/zsh/functions
   $fpath
 )
 export FPATH
