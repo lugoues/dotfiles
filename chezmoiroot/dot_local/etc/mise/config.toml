@@ -72,7 +72,6 @@ node = "latest"
 "aqua:FiloSottile/age"             = { version = "latest" }
 "aqua:FiloSottile/mkcert"          = { version = "latest" }
 "aqua:getsops/sops"                = { version = "latest" }
-"github:Giammarco-Ferranti/deja"   = { version = "latest", postinstall = "zsh-cache-init deja init zsh" }
 "aqua:gopasspw/gopass"             = { version = "latest" }
 "aqua:ip7z/7zip"                   = { version = "latest" }
 "aqua:jdx/mise"                    = { version = "latest", postinstall = "mise plugins update --yes;\n  zsh-cache-comp mise completion zsh;" }
