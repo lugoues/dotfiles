@@ -1,5 +1,5 @@
 emulate -L zsh
-setopt local_options no_unset
+setopt local_options no_unset extended_glob
 
 local name=
 if [[ ${1-} == --name ]]; then
