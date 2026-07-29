@@ -12,6 +12,7 @@ _ZO_DATA_DIR = "{{ env.HOME }}/.local/share/zoxide"
 
 [settings]
 auto_install = true
+aqua.baked_registry = false
 disable_backends = ["asdf", "gem", "vfox"]
 exec_auto_install = true
 experimental = true
