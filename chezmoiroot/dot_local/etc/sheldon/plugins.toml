@@ -21,9 +21,9 @@ local = "~/.local/share/zsh/init.d"
 [plugins.zshrc-local]
 inline = "[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local"
 
-[plugins.zsh-autosuggestions]
-github = "zsh-users/zsh-autosuggestions"
-apply = ["defer"]
+# [plugins.zsh-autosuggestions]
+# github = "zsh-users/zsh-autosuggestions"
+# apply = ["defer"]
 
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
