@@ -54,6 +54,7 @@ node = "latest"
 "aqua:atuinsh/atuin"               = { version = "latest", postinstall = "zsh-cache-init atuin init zsh --disable-up-arrow;  zsh-cache-comp atuin gen-completions --shell zsh;" }
 "aqua:aws/aws-cli"                 = { version = "latest" }
 "aqua:bootandy/dust"               = { version = "latest" }
+"github:CyberShadow/btdu"          = { version = "v0.7.2", os =["linux"] }
 "aqua:BurntSushi/ripgrep"          = { version = "latest", postinstall = "zsh-cache-comp  rg --generate complete-zsh" }
 "aqua:carapace-sh/carapace-bin"    = { version = "latest" }
 "aqua:charmbracelet/crush"         = { version = "latest", postinstall = "zsh-cache-comp crush completion zsh;" }
