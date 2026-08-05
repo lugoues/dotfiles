@@ -1,0 +1,93 @@
+#!/usr/bin/env -S deno run --allow-run=mise,zsh --allow-read --allow-env
+//MISE hide = true
+
+import { parse } from "jsr:@std/toml";
+
+async function mise(...args: string[]): Promise<string> {
+  const { success, stdout, stderr } = await new Deno.Command("mise", { args }).output();
+  if (!success) throw new Error(`mise ${args.join(" ")}: ${new TextDecoder().decode(stderr)}`);
+  return new TextDecoder().decode(stdout);
+}
+
+// shell mise itself would use for inline hooks
+let shell = ["zsh", "-c", "-o", "errexit"];
+try {
+  const s = (await mise("settings", "get", "unix_default_inline_shell_args")).trim();
+  if (s) shell = s.split(/\s+/);
+} catch { /* keep default */ }
+
+// tool -> { version, install_path }
+type Installed = { version: string; install_path: string };
+const installed = new Map < string, Installed> ();
+for (const [name, versions] of Object.entries(
+  JSON.parse(await mise("ls", "--current", "--installed", "--json")) as Record<string, Installed[]>,
+)) {
+  if (versions?.[0]) installed.set(name, versions[0]);
+}
+
+// dedupe across configs; later config wins
+const pending = new Map < string, string> ();
+for (const config of JSON.parse(await mise("config", "ls", "--json")) as { path: string }[]) {
+  if (config.path.endsWith(".toml") == false) {
+    continue
+  }
+
+  let parsed: Record<string, unknown>;
+  try {
+    parsed = parse(await Deno.readTextFile(config.path)) as Record<string, unknown>;
+  } catch (e) {
+    console.error(`skip ${config.path}: ${e instanceof Error ? e.message : e}`);
+    continue;
+  }
+  const tools = parsed.tools;
+  if (!tools || typeof tools !== "object") continue;
+
+  for (const [tool, settings] of Object.entries(tools)) {
+    if (typeof settings !== "object" || settings === null || Array.isArray(settings)) continue;
+    const cmd = (settings as { postinstall?: unknown }).postinstall;
+    if (typeof cmd !== "string" || !cmd.trim()) continue;
+    pending.set(tool, cmd);
+  }
+}
+
+let failed = 0;
+for (const [tool, cmd] of pending) {
+  if (cmd.includes("{{")) {
+    console.error(`skip ${tool}: postinstall uses a mise template, not rendered here`);
+    failed++;
+    continue;
+  }
+
+  const info = installed.get(tool);
+  if (!info) {
+    console.error(`skip ${tool}: not installed`);
+    failed++;
+    continue;
+  }
+
+  const env: Record<string, string> = {
+    MISE_TOOL_NAME: tool,
+    MISE_TOOL_VERSION: info.version,
+    MISE_TOOL_INSTALL_PATH: info.install_path,
+    PATH: `${info.install_path}/bin:${Deno.env.get("PATH") ?? ""}`,
+  };
+
+  console.log(`postinstall ${tool}`);
+  const [bin, ...args] = shell;
+  const { success, stderr } = await new Deno.Command(bin, {
+    args: [...args, cmd],
+    env,
+    stdout: "inherit",
+  }).output();
+
+  if (!success) {
+    failed++;
+    console.error(`FAILED ${tool}`);
+    console.error(new TextDecoder().decode(stderr).trimEnd());
+  }
+}
+
+if (failed) {
+  console.error(`\n${failed} of ${pending.size} failed`);
+  Deno.exit(1);
+}
