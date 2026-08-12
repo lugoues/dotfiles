@@ -7,6 +7,10 @@ recency_score_multiplier=1.2
 filter_mode = "host"
 filter_mode_shell_up_key_binding = "session"
 
+{{ if eq .devcontainer true -}}
+filter_mode = "workspace"
+{{ end -}}
+
 # Git repos = workspace
 workspaces = true
 
@@ -61,3 +65,6 @@ autostart = true
 recency_score_multiplier = 10.0
 frequency_score_multiplier = 0.8
 frecency_score_multiplier = 1.0
+{{ if eq .devcontainer true -}}
+filters = ["global", "session", "directory", "workspace"]
+{{ end -}}
