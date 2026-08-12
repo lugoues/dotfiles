@@ -4,11 +4,12 @@ search_mode = "daemon-fuzzy"
 exit_mode = "return-original"
 recency_score_multiplier=1.2
 
-filter_mode = "host"
 filter_mode_shell_up_key_binding = "session"
 
 {{ if eq .devcontainer true -}}
 filter_mode = "workspace"
+{{ else -}}
+filter_mode = "host"
 {{ end -}}
 
 # Git repos = workspace
