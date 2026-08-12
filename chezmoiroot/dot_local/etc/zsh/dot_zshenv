@@ -1,8 +1,8 @@
 export PATH=~/.local/bin:/opt/homebrew/bin:$PATH
 export SHELL="$(which zsh)"
 export MISE_CONFIG_DIR="~/.local/etc/mise"
-export MISE_TRUSTED_CONFIG_PATHS="~/.local/etc/mise"
-export MISE_IGNORED_CONFIG_PATHS="~/.local/share/chezmoi/mise.toml"
+export MISE_TRUSTED_CONFIG_PATHS="~/.local/etc/mise:${MISE_TRUSTED_CONFIG_PATHS}"
+export MISE_IGNORED_CONFIG_PATHS="~/.local/share/chezmoi/mise.toml:${MISE_IGNORED_CONFIG_PATHS}"
 export ZSH_COMPLETIONS_DIR=$HOME/.local/share/zsh/completions
 export ZSH_COMPDUMP=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump
 fpath=( $ZSH_COMPLETIONS_DIR $HOME/.local/etc/zsh/functions $fpath )
