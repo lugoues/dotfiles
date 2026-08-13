@@ -19,6 +19,7 @@ experimental = true
 idiomatic_version_file_enable_tools = []
 jobs = 8
 lockfile = false
+minimum_release_age = "7d"
 npm.package_manager = "aube"
 pipx.uvx = true
 plugin_autoupdate_last_check_duration = "2d"
