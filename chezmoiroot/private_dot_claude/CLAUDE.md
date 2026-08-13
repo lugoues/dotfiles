@@ -36,4 +36,8 @@ we work together
   - Comments in code are a great way to clarify functionality and usage but too many comments are often worse than no comments at all. Do not comment everyline but feel free to describe (concisely) how functions are used above function definitions, classes, etc
   - When writing commits, write messages as a human would. Only a title, no lenghty body. Don't add "co-authored-by" or anything similar.
 
-
+## General Development
+  - Use `mise` to manage tooling.
+    - If you need a tool that isn't installed use mise to add it
+    - prefer mise over .env files
+  - When writing commits, write messages as a human would. Only a title, no lenghty body. Don't add "co-authored-by" or anything similar.
