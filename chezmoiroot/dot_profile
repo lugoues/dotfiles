@@ -1,0 +1,6 @@
+export PATH="$HOME/.local/bin:$PATH"
+export MISE_CONFIG_DIR="$HOME/.local/etc/mise"
+export MISE_TRUSTED_CONFIG_PATHS="$HOME/.local/etc/mise:${MISE_TRUSTED_CONFIG_PATHS}"
+export MISE_IGNORED_CONFIG_PATHS="$HOME/.local/share/chezmoi/mise.toml:${MISE_IGNORED_CONFIG_PATHS}"
+
+. "$HOME/.atuin/bin/env"
