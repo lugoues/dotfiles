@@ -18,7 +18,7 @@ exec_auto_install = true
 experimental = true
 idiomatic_version_file_enable_tools = []
 jobs = 8
-lockfile = false
+lockfile = true
 minimum_release_age = "7d"
 npm.package_manager = "aube"
 pipx.uvx = true
@@ -101,5 +101,6 @@ node = "latest"
 "github:michel-kraemer/zsh-patina" = { version = "latest", postinstall = "zsh-cache-init zsh-patina activate;" }
 "aqua:anthropics/claude-code"      = { version = "latest" }
 "aqua:openai/codex"                = { version = "latest" }
+
 
 
