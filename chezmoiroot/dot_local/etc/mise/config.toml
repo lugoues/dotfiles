@@ -66,7 +66,7 @@ node = "latest"
 # "aqua:crates.io/broot"             = { version = "latest" }
 "aqua:cue-lang/cue"                = { version = "latest" }
 "aqua:dandavison/delta"            = { version = "latest", postinstall = "zsh-cache-comp delta --generate-completion zsh;" }
-"aqua:denisidoro/navi"             = { version = "2.23.0", postinstall = "zsh-cache-init navi widget zsh;" }
+"aqua:denisidoro/navi"             = { version = "2.23.0", os = ["linux"], postinstall = "zsh-cache-init navi widget zsh;" }
 "aqua:direnv/direnv"               = { version = "latest" }
 "aqua:ducaale/xh"                  = { version = "latest" }
 "aqua:dylanaraps/neofetch"         = { version = "latest" }
