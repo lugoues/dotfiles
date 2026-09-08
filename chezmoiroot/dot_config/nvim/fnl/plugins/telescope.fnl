@@ -19,7 +19,7 @@
  (lazy-spec! :debugloop/telescope-undo.nvim
              {:dependencies [:nvim-telescope/telescope.nvim]
               :opts {:extensions {:undo {:use_delta true
-                                         :diff_context_lines 10
+                                         ; :diff_context_lines 10
                                          :side_by_side true
                                          :layout_strategy :vertical
                                          :layout_config {:preview_height 0.8}}}}
