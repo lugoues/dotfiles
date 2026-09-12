@@ -70,7 +70,7 @@ node = "latest"
 "aqua:direnv/direnv"               = { version = "latest" }
 "aqua:ducaale/xh"                  = { version = "latest" }
 "aqua:dylanaraps/neofetch"         = { version = "latest" }
-"github:eza-community/eza"           = { version = "latest" }
+"aqua:eza-community/eza"           = { version = "latest", os = ["linux"] }
 "aqua:FiloSottile/age"             = { version = "latest" }
 "aqua:FiloSottile/mkcert"          = { version = "latest" }
 "aqua:getsops/sops"                = { version = "latest" }
