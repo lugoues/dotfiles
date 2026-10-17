@@ -22,7 +22,6 @@ lockfile = true
 minimum_release_age = "7d"
 npm.package_manager = "aube"
 pipx.uvx = true
-plugin_autoupdate_last_check_duration = "2d"
 unix_default_file_shell_args = "zsh -c -o errexit"
 unix_default_inline_shell_args = "zsh -c -o errexit"
 use_file_shell_for_executable_tasks = true
