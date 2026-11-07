@@ -306,7 +306,8 @@ lt = lasttag
 ; Lugoues
 [includeIf "hasconfig:remote.*.url:https://github.com/lugoues/**"]
   path = ~/.local/etc/git/config/lugoues.config
-[includeIf "hasconfig:remote.*.url:*github.com:lugoues/**"]
+; [includeIf "hasconfig:remote.*.url:*github.com:lugoues/**"]
+[include]
   path = ~/.local/etc/git/config/lugoues.config
 
 ; LGHTR
@@ -315,11 +316,17 @@ lt = lasttag
 [includeIf "hasconfig:remote.*.url:*github.com:beacon-point/**"]
   path = ~/.local/etc/git/config/lugoues-lghtr.config
 
-; Psykhe
-[includeIf "gitdir:~/dev/github.com/psykhe/"]
-  path = ~/.local/etc/git/config/lugoues-psykhe.config
-[includeIf "hasconfig:remote.*.url:*github.com:psykhe-fashion/**"]
-  path = ~/.local/etc/git/config/lugoues-psykhe.config
+; Dream Teams
+[includeIf "gitdir:~/dev/github.com/dream-teams-ai/"]
+  path = ~/.local/etc/git/config/lugoues-dream-teams.config
+[includeIf "hasconfig:remote.*.url:*github.com:dream-teams-ai/**"]
+  path = ~/.local/etc/git/config/lugoues-dream-teams.config
+
+; ; Psykhe
+; [includeIf "gitdir:~/dev/github.com/psykhe/"]
+;   path = ~/.local/etc/git/config/lugoues-psykhe.config
+; [includeIf "hasconfig:remote.*.url:*github.com:psykhe-fashion/**"]
+;   path = ~/.local/etc/git/config/lugoues-psykhe.config
 
 # Local Config Override.
 [include]
